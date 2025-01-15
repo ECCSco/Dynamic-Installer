@@ -1,1 +1,1 @@
-131466987653915~Squid Game~A game based on the popular TV series~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Squid_Game.Dyna")
+131466987653915~Squid Game~A game based on the popular TV series. In this game, you need to press the blue button so that the main character goes and the red button so that he stops so that the doll does not kill him.~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Squid_Game.Dyna")
