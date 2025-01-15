@@ -1,1 +1,24 @@
-print("Paint Soon")
+PaintIcon = Instance.new("ImageButton")
+PaintName = Instance.new("TextLabel")
+
+PaintIcon.Parent = AppsScrollingFrame
+PaintIcon.BackgroundTransparency = 1
+PaintIcon.AutoButtonColor = false
+PaintIcon.Image = "rbxassetid://100702953902815"
+
+PaintName.Name = "SquidGameName"
+PaintName.Parent = PaintIcon
+PaintName.BackgroundTransparency = 1
+PaintName.Position = UDim2.new(0.5, 0, 1, 0)
+PaintName.AnchorPoint = Vector2.new(0.5, 0)
+PaintName.Size = UDim2.new(0, 60, 0, 15)
+PaintName.Font = Enum.Font.SourceSansBold
+PaintName.Text = "Pint"
+PaintName.TextColor3 = Color3.fromRGB(255, 255, 255)
+PaintName.TextSize = 15
+PaintName.TextXAlignment = Enum.TextXAlignment.Center
+PaintName.TextYAlignment = Enum.TextYAlignment.Bottom
+ 
+PaintIcon.MouseButton1Click:Connect(function()
+
+end)
