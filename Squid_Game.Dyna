@@ -4,7 +4,7 @@ SquidGameName = Instance.new("TextLabel")
 SquidGameIcon.Parent = AppsScrollingFrame
 SquidGameIcon.BackgroundTransparency = 1
 SquidGameIcon.AutoButtonColor = false
-SquidGameIcon.Image = "rbxassetid://131466987653915"
+SquidGameIcon.Image = "rbxassetid://107722060654736"
 
 SquidGameName.Name = "SquidGameName"
 SquidGameName.Parent = SquidGameIcon
