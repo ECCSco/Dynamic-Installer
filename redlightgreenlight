@@ -1,1 +1,24 @@
-print("Hello World")
+SquidGameIcon = Instance.new("ImageButton")
+SquidGameName = Instance.new("TextLabel")
+
+SquidGameIcon.Parent = AppsScrollingFrame
+SquidGameIcon.BackgroundTransparency = 1
+SquidGameIcon.AutoButtonColor = false
+SquidGameIcon.Image = "rbxassetid://131466987653915"
+
+SquidGameName.Name = "SquidGameName"
+SquidGameName.Parent = SquidGameIcon
+SquidGameName.BackgroundTransparency = 1
+SquidGameName.Position = UDim2.new(0.5, 0, 1, 0)
+SquidGameName.AnchorPoint = Vector2.new(0.5, 0)
+SquidGameName.Size = UDim2.new(0, 60, 0, 15)
+SquidGameName.Font = HeadFont
+SquidGameName.Text = "Red ligh-green light"
+SquidGameName.TextColor3 = Color3.fromRGB(255, 255, 255)
+SquidGameName.TextSize = 15
+SquidGameName.TextXAlignment = Enum.TextXAlignment.Center
+SquidGameName.TextYAlignment = Enum.TextYAlignment.Bottom
+ 
+SquidGameIcon.MouseButton1Click:Connect(function()
+
+end)
