@@ -1,0 +1,24 @@
+TicTacToeIcon = Instance.new("ImageButton")
+TicTacToeName = Instance.new("TextLabel")
+
+TicTacToeIcon.Parent = AppsScrollingFrame
+TicTacToeIcon.BackgroundTransparency = 1
+TicTacToeIcon.AutoButtonColor = false
+TicTacToeIcon.Image = "rbxassetid://81780017076419"
+
+TicTacToeName.Name = "TicTacToeName"
+TicTacToeName.Parent = TicTacToeIcon
+TicTacToeName.BackgroundTransparency = 1
+TicTacToeName.Position = UDim2.new(0.5, 0, 1, 0)
+TicTacToeName.AnchorPoint = Vector2.new(0.5, 0)
+TicTacToeName.Size = UDim2.new(0, 60, 0, 15)
+TicTacToeName.Font = Enum.Font.SourceSansBold
+TicTacToeName.Text = "Tic-Tac-Toe"
+TicTacToeName.TextColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeName.TextSize = 15
+TicTacToeName.TextXAlignment = Enum.TextXAlignment.Center
+TicTacToeName.TextYAlignment = Enum.TextYAlignment.Bottom
+ 
+TicTacToeIcon.MouseButton1Click:Connect(function()
+
+end)
