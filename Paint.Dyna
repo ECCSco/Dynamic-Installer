@@ -11,6 +11,7 @@ ColorSlider = Instance.new("ImageButton")
 
 local dragging = false
 local currentColor = Color3.fromRGB(0, 0, 0)
+local color
 
 PaintFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 PaintFrame.BorderSizePixel = 1
@@ -128,11 +129,11 @@ end)
 local function updateSlider(input)
 local delta = input.Position.X - ColorSliderFrame.AbsolutePosition.X
 local percentage = math.clamp(delta / ColorSliderFrame.AbsoluteSize.X, 0, 1)
-percentage = math.clamp(percentage, 0, 1) -- Ограничиваем значение percentage от 0 до 1
+percentage = math.clamp(percentage, 0, 1)
 ColorSlider.Position = UDim2.new(percentage, 0, -0.5, 0)
     
 local hue = percentage
-local color = Color3.fromHSV(hue, 1, 1)
+color = Color3.fromHSV(hue, 1, 1)
 ColorSlider.BackgroundColor3 = color
 currentColor = color
 end
@@ -220,5 +221,5 @@ currentColor = Color3.fromRGB(255, 255, 255)
 end)
 
 Draw.MouseButton1Click:Connect(function()
-currentColor = Color3.fromRGB(0, 0, 0)
+currentColor = color
 end)
