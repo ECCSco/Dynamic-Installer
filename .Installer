@@ -1,3 +1,4 @@
 107722060654736~Squid Game~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Squid_Game.Dyna")
 100702953902815~Paint~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Paint.Dyna")
 81780017076419~Tic-Tac-Toe~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Tic-Tac-Toe.Dyna")
+75900857436291~Pop Ball~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Ball_Pop.Dyna")
