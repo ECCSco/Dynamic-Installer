@@ -47,25 +47,25 @@ PopBallName.TextXAlignment = Enum.TextXAlignment.Center
 PopBallName.TextYAlignment = Enum.TextYAlignment.Bottom
  
 PopBallIcon.MouseButton1Click:Connect(function()
-PaintFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
+PopBallFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
 end)
 
 PopBallCloseButton.MouseButton1Click:Connect(function()
-PaintFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
+PopBallFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
 end)
 
 
 spawn(function()
 while task.wait() do
-if PaintFrame.Size ~= UDim2.new(0, 551, 0, 285) then
+if PopBallFrame.Size ~= UDim2.new(0, 551, 0, 285) then
 PopBallCloseButton.Visible = false
 
 end
-if PaintFrame.Size == UDim2.new(0, 551, 0, 285) then
+if PopBallFrame.Size == UDim2.new(0, 551, 0, 285) then
 PopBallCloseButton.Visible = true
 
 end
-if PaintFrame.Size == UDim2.new(0, 0, 0, 0) then
+if PopBallFrame.Size == UDim2.new(0, 0, 0, 0) then
 PopBallFrame.Visible = false
 else
 PopBallFrame.Visible = true
