@@ -1,1 +1,74 @@
---
+PopBallIcon = Instance.new("ImageButton")
+PopBallName = Instance.new("TextLabel")
+PopBallFrame = Instance.new("ImageButton")
+PopBallCloseButton = Instance.new("ImageButton")
+PopBallWhiteFrame = Instance.new("Frame")
+PopBallScore = Instance.new("TextLabel")
+
+PopBallFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+PopBallFrame.BorderSizePixel = 1
+PopBallFrame.Parent = MainHomeFrame
+PopBallFrame.BorderSizePixel = 0  
+PopBallFrame.AnchorPoint = Vector2.new(0.5, 0)
+PopBallFrame.Position = UDim2.new(0.5, 0, 0, 0)
+PopBallFrame.Size = UDim2.new(0, 0, 0, 0)
+PopBallFrame.AutoButtonColor = false
+
+PopBallCloseButton.Name = "PopBallCloseButton"
+PopBallCloseButton.Parent = PopBallFrame
+PopBallCloseButton.Size = UDim2.new(0, 20, 0, 20)
+PopBallCloseButton.AutoButtonColor = false
+PopBallCloseButton.Image = "rbxassetid://126487052147977"
+PopBallCloseButton.BackgroundTransparency = 1
+
+PopBallWhiteFrame.Size = UDim2.new(0, 551, 0, 265)
+PopBallWhiteFrame.AnchorPoint = Vector2.new(0.5, 1)
+PopBallWhiteFrame.Position = UDim2.new(0.5, 0, 1, 0)
+PopBallWhiteFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+PopBallWhiteFrame.Parent = PopBallFrame
+PopBallWhiteFrame.BorderSizePixel = 0
+
+PopBallIcon.Parent = AppsScrollingFrame
+PopBallIcon.BackgroundTransparency = 1
+PopBallIcon.AutoButtonColor = false
+PopBallIcon.Image = "rbxassetid://75900857436291"
+
+PopBallName.Name = "PopBallName"
+PopBallName.Parent = PopBallIcon
+PopBallName.BackgroundTransparency = 1
+PopBallName.Position = UDim2.new(0.5, 0, 1, 0)
+PopBallName.AnchorPoint = Vector2.new(0.5, 0)
+PopBallName.Size = UDim2.new(0, 60, 0, 15)
+PopBallName.Font = Enum.Font.SourceSansBold
+PopBallName.Text = "Pop Ball"
+PopBallName.TextColor3 = Color3.fromRGB(255, 255, 255)
+PopBallName.TextSize = 15
+PopBallName.TextXAlignment = Enum.TextXAlignment.Center
+PopBallName.TextYAlignment = Enum.TextYAlignment.Bottom
+ 
+PopBallIcon.MouseButton1Click:Connect(function()
+PaintFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
+end)
+
+PopBallCloseButton.MouseButton1Click:Connect(function()
+PaintFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
+end)
+
+
+spawn(function()
+while task.wait() do
+if PaintFrame.Size ~= UDim2.new(0, 551, 0, 285) then
+PopBallCloseButton.Visible = false
+
+end
+if PaintFrame.Size == UDim2.new(0, 551, 0, 285) then
+PopBallCloseButton.Visible = true
+
+end
+if PaintFrame.Size == UDim2.new(0, 0, 0, 0) then
+PopBallFrame.Visible = false
+else
+PopBallFrame.Visible = true
+end
+end
+end)
