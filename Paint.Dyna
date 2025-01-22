@@ -1,5 +1,76 @@
 PaintIcon = Instance.new("ImageButton")
 PaintName = Instance.new("TextLabel")
+PaintFrame = Instance.new("ImageButton")
+Paint = Instance.new("Frame")
+ClosePaintButton = Instance.new("ImageButton")
+ClearPaint = Instance.new("ImageButton")
+Eraser = Instance.new("ImageButton")
+Draw = Instance.new("ImageButton")
+ColorSliderFrame = Instance.new("Frame")
+ColorSlider = Instance.new("ImageButton")
+
+local dragging = false
+local currentColor = Color3.fromRGB(0, 0, 0)
+
+PaintFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+PaintFrame.BorderSizePixel = 1
+PaintFrame.Parent = MainHomeFrame
+PaintFrame.BorderSizePixel = 0  
+PaintFrame.AnchorPoint = Vector2.new(0.5, 0)
+PaintFrame.Position = UDim2.new(0.5, 0, 0, 0)
+PaintFrame.Size = UDim2.new(0, 0, 0, 0)
+PaintFrame.AutoButtonColor = false
+
+ClosePaintButton.Name = "ClosePaintButton"
+ClosePaintButton.Parent = PaintFrame
+ClosePaintButton.Size = UDim2.new(0, 20, 0, 20)
+ClosePaintButton.AutoButtonColor = false
+ClosePaintButton.Image = "rbxassetid://126487052147977"
+ClosePaintButton.BackgroundTransparency = 1
+
+ClearPaint.Name = "ClearPaint"
+ClearPaint.Parent = PaintFrame
+ClearPaint.Size = UDim2.new(0, 20, 0, 20)
+ClearPaint.Position = UDim2.new(0, 20, 0, 0)
+ClearPaint.AutoButtonColor = false
+ClearPaint.Image = "rbxassetid://128600128028581"
+ClearPaint.BackgroundTransparency = 1
+
+Eraser.Name = "Eraser"
+Eraser.Parent = PaintFrame
+Eraser.Size = UDim2.new(0, 20, 0, 20)
+Eraser.Position = UDim2.new(0, 40, 0, 0)
+Eraser.AutoButtonColor = false
+Eraser.Image = "rbxassetid://117113100970392"
+Eraser.BackgroundTransparency = 1
+
+Draw.Name = "Draw"
+Draw.Parent = PaintFrame
+Draw.Size = UDim2.new(0, 20, 0, 20)
+Draw.Position = UDim2.new(0, 60, 0, 0)
+Draw.AutoButtonColor = false
+Draw.Image = "rbxassetid://118642856145881"
+Draw.BackgroundTransparency = 1
+
+Paint.Size = UDim2.new(0, 551, 0, 265)
+Paint.AnchorPoint = Vector2.new(0.5, 1)
+Paint.Position = UDim2.new(0.5, 0, 1, 0)
+Paint.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Paint.Parent = PaintFrame
+Paint.BorderSizePixel = 0
+
+ColorSliderFrame.Size = UDim2.new(0, 460, 0, 10)
+ColorSliderFrame.Position = UDim2.new(0, 80, 0, 5)
+ColorSliderFrame.BorderSizePixel = 0  
+ColorSliderFrame.Parent = PaintFrame
+ColorSliderFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255) 
+
+ColorSlider.Size = UDim2.new(0, 20, 0, 20)
+ColorSlider.Position = UDim2.new(0, 0, -0.5, 0)
+ColorSlider.Parent = ColorSliderFrame
+ColorSlider.AutoButtonColor = false
+ColorSlider.BorderSizePixel = 0
+ColorSlider.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 
 PaintIcon.Parent = AppsScrollingFrame
 PaintIcon.BackgroundTransparency = 1
@@ -20,5 +91,134 @@ PaintName.TextXAlignment = Enum.TextXAlignment.Center
 PaintName.TextYAlignment = Enum.TextYAlignment.Bottom
  
 PaintIcon.MouseButton1Click:Connect(function()
+PaintFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
+end)
 
+ClosePaintButton.MouseButton1Click:Connect(function()
+PaintFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
+end)
+
+spawn(function()
+while task.wait() do
+if PaintFrame.Size ~= UDim2.new(0, 551, 0, 285) then
+ClosePaintButton.Visible = false
+Paint.Visible = false
+ClearPaint.Visible = false
+Eraser.Visible = false
+Draw.Visible = false
+ColorSliderFrame.Visible = false
+end
+if PaintFrame.Size == UDim2.new(0, 551, 0, 285) then
+ClosePaintButton.Visible = true
+Paint.Visible = true
+ClearPaint.Visible = true
+Eraser.Visible = true
+Draw.Visible = true
+ColorSliderFrame.Visible = true
+end
+if PaintFrame.Size == UDim2.new(0, 0, 0, 0) then
+PaintFrame.Visible = false
+else
+PaintFrame.Visible = true
+end
+end
+end)
+
+
+local function updateSlider(input)
+local delta = input.Position.X - ColorSliderFrame.AbsolutePosition.X
+local percentage = math.clamp(delta / ColorSliderFrame.AbsoluteSize.X, 0, 1)
+percentage = math.clamp(percentage, 0, 1) -- Ограничиваем значение percentage от 0 до 1
+ColorSlider.Position = UDim2.new(percentage, 0, -0.5, 0)
+    
+local hue = percentage
+local color = Color3.fromHSV(hue, 1, 1)
+ColorSlider.BackgroundColor3 = color
+currentColor = color
+end
+
+ColorSlider.InputBegan:Connect(function(input)
+if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+dragging = true
+updateSlider(input)
+input.Changed:Connect(function()
+if input.UserInputState == Enum.UserInputState.End then
+dragging = false
+end
+end)
+end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+updateSlider(input)
+end
+end)
+
+
+local function createLine(startPos, endPos)
+if Paint.Visible == false then return end
+
+endPos = Vector2.new(
+math.clamp(endPos.X, 0, Paint.AbsoluteSize.X),
+math.clamp(endPos.Y, 0, Paint.AbsoluteSize.Y)
+)
+local line = Instance.new("Frame")
+line.Size = UDim2.new(0, (endPos - startPos).Magnitude, 0, 2)
+line.Position = UDim2.new(0, startPos.X, 0, startPos.Y)
+line.AnchorPoint = Vector2.new(0, 0.5)
+line.Rotation = math.deg(math.atan2(endPos.Y - startPos.Y, endPos.X - startPos.X))
+line.BackgroundColor3 = currentColor
+line.BorderColor3 = currentColor
+line.Parent = Paint
+end
+
+local function getRelativePosition(input)
+local absolutePosition = Paint.AbsolutePosition
+local relativePosition = Vector2.new(input.Position.X - absolutePosition.X, input.Position.Y - absolutePosition.Y)
+relativePosition = Vector2.new(
+math.clamp(relativePosition.X, 0, Paint.AbsoluteSize.X),
+math.clamp(relativePosition.Y, 0, Paint.AbsoluteSize.Y)
+)
+return relativePosition
+end
+
+UserInputService.InputBegan:Connect(function(input)
+if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+drawing = true
+lastPosition = getRelativePosition(input)
+end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+drawing = false
+lastPosition = nil
+end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+if drawing and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+local currentPosition = getRelativePosition(input)
+if lastPosition then
+createLine(lastPosition, currentPosition)
+end
+lastPosition = currentPosition
+end
+end)
+
+ClearPaint.MouseButton1Click:Connect(function()
+for _, child in ipairs(Paint:GetChildren()) do
+if child:IsA("Frame") then
+child:Destroy()
+end
+end
+end)
+
+Eraser.MouseButton1Click:Connect(function()
+currentColor = Color3.fromRGB(255, 255, 255)
+end)
+
+Draw.MouseButton1Click:Connect(function()
+currentColor = Color3.fromRGB(0, 0, 0)
 end)
