@@ -59,11 +59,11 @@ spawn(function()
 while task.wait() do
 if PopBallFrame.Size ~= UDim2.new(0, 551, 0, 285) then
 PopBallCloseButton.Visible = false
-
+PopBallWhiteFrame.Visible = false
 end
 if PopBallFrame.Size == UDim2.new(0, 551, 0, 285) then
 PopBallCloseButton.Visible = true
-
+PopBallWhiteFrame.Visible = true
 end
 if PopBallFrame.Size == UDim2.new(0, 0, 0, 0) then
 PopBallFrame.Visible = false
