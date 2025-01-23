@@ -4,6 +4,13 @@ PopBallFrame = Instance.new("ImageButton")
 PopBallCloseButton = Instance.new("ImageButton")
 PopBallWhiteFrame = Instance.new("Frame")
 PopBallScore = Instance.new("TextLabel")
+TweenService = game:GetService("TweenService")
+
+local GameScore = 0
+local ballSize = 80
+local ballSpeed = 50
+local frameWidth = 551
+local frameHeight = 265
 
 PopBallFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 PopBallFrame.BorderSizePixel = 1
@@ -27,6 +34,19 @@ PopBallWhiteFrame.Position = UDim2.new(0.5, 0, 1, 0)
 PopBallWhiteFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 PopBallWhiteFrame.Parent = PopBallFrame
 PopBallWhiteFrame.BorderSizePixel = 0
+
+PopBallScore.Name = "PopBallScore"
+PopBallScore.Parent = PopBallWhiteFrame
+PopBallScore.BackgroundTransparency = 1
+PopBallScore.Position = UDim2.new(0, 0, 0, 0)
+PopBallScore.Size = UDim2.new(0, 100, 0, 50)
+PopBallScore.Font = Enum.Font.SourceSansBold
+PopBallScore.Text = "Score: "..GameScore
+PopBallScore.TextColor3 = Color3.fromRGB(0, 0, 0)
+PopBallScore.TextSize = 30
+PopBallScore.TextXAlignment = Enum.TextXAlignment.Left
+PopBallScore.TextYAlignment = Enum.TextYAlignment.Top
+PopBallScore.TextWrapped = true
 
 PopBallIcon.Parent = AppsScrollingFrame
 PopBallIcon.BackgroundTransparency = 1
@@ -69,6 +89,75 @@ if PopBallFrame.Size == UDim2.new(0, 0, 0, 0) then
 PopBallFrame.Visible = false
 else
 PopBallFrame.Visible = true
+end
+end
+end)
+
+local function createConfetti(position)
+for i = 1, 10 do
+local confetti = Instance.new("Frame")
+confetti.Size = UDim2.new(0, 10, 0, 10)
+confetti.Position = position
+confetti.BackgroundColor3 = Color3.fromRGB(math.random(255), math.random(255), math.random(255))
+confetti.Parent = PopBallWhiteFrame
+confetti.BorderSizePixel = 0
+
+local velocity = Vector2.new(math.random(-ballSpeed, ballSpeed), math.random(-ballSpeed, ballSpeed))
+local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut)
+local goal = {Position = confetti.Position + UDim2.new(0, velocity.X, 0, velocity.Y)}
+local tween = TweenService:Create(confetti, tweenInfo, goal)
+tween:Play()
+
+game:GetService("Debris"):AddItem(confetti, 1) -- Удаление конфетти через 1 секунду
+end
+end
+
+local function moveCircle(Circle)
+local direction = Vector2.new(math.random(-1, 1), math.random(-1, 1)).unit
+local speed = math.random(10, 10)
+while true do
+local newPos = Circle.Position + UDim2.new(direction.X * speed / 2000, 0, direction.Y * speed / 2000, 0)
+if newPos.X.Scale < 0 or newPos.X.Scale > (frameWidth - ballSize) / frameWidth then
+direction = Vector2.new(-direction.X, direction.Y)
+end
+if newPos.Y.Scale < 0 or newPos.Y.Scale > (frameHeight - ballSize) / frameHeight then
+direction = Vector2.new(direction.X, -direction.Y)
+end
+Circle.Position = UDim2.new(math.clamp(newPos.X.Scale, 0, (frameWidth - ballSize) / frameWidth), 0, math.clamp(newPos.Y.Scale, 0, (frameHeight - ballSize) / frameHeight), 0)
+task.wait()
+end
+end
+
+local function createBall()
+local ball = Instance.new("ImageButton")
+ball.Size = UDim2.new(0, ballSize, 0, ballSize)
+ball.Position = UDim2.new(0.5, -ballSize / 2, 0.5, -ballSize / 2) -- Центр фрейма
+ball.BackgroundColor3 = Color3.fromRGB(math.random(255), math.random(255), math.random(255))
+ball.AutoButtonColor = false
+ball.Parent = PopBallWhiteFrame
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0.5, 0)
+corner.Parent = ball
+
+local function onBallClick()
+GameScore = GameScore + 1
+PopBallScore.Text = "Score: "..GameScore
+createConfetti(ball.Position)
+ball:Destroy()
+end
+
+ball.MouseButton1Click:Connect(onBallClick)
+
+spawn(function()
+moveCircle(ball)
+end)
+end
+
+spawn(function()
+while wait(1) do
+if PopBallWhiteFrame.Visible then
+createBall()
 end
 end
 end)
