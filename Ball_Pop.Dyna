@@ -81,7 +81,7 @@ if PopBallFrame.Size ~= UDim2.new(0, 551, 0, 285) then
 PopBallCloseButton.Visible = false
 PopBallWhiteFrame.Visible = false
 end
-if PopBallFrame.Size == UDim2.new(0, 551, 0, 285) then
+if PopBallFrame.Size == UDim2.new(0, 551, 0, 285) and game.CoreGui.DI.DynamicIsland.Size == UDim2.new(0, 550, 0, 350) then
 PopBallCloseButton.Visible = true
 PopBallWhiteFrame.Visible = true
 end
