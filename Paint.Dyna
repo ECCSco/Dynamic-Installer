@@ -99,6 +99,13 @@ ClosePaintButton.MouseButton1Click:Connect(function()
 PaintFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
 end)
 
+ClosePaintButton.Visible = false
+Paint.Visible = false
+ClearPaint.Visible = false
+Eraser.Visible = false
+Draw.Visible = false
+ColorSliderFrame.Visible = false
+
 spawn(function()
 while task.wait() do
 if PaintFrame.Size ~= UDim2.new(0, 551, 0, 285) then
