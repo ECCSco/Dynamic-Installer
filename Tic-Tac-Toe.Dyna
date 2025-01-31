@@ -1,10 +1,40 @@
 TicTacToeIcon = Instance.new("ImageButton")
 TicTacToeName = Instance.new("TextLabel")
+TicTacToeFrame = Instance.new("ImageButton")
+TicTacToeCloseButton = Instance.new("ImageButton")
+TicTacToeWhiteFrame = Instance.new("Frame")
+
+TicTacToeCloseButton.Visible = false
+TicTacToeWhiteFrame.Visible = false
+TicTacToeFrame.Visible = false
+
+TicTacToeFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TicTacToeFrame.BorderSizePixel = 1
+TicTacToeFrame.Parent = MainHomeFrame
+TicTacToeFrame.BorderSizePixel = 0  
+TicTacToeFrame.AnchorPoint = Vector2.new(0.5, 0)
+TicTacToeFrame.Position = UDim2.new(0.5, 0, 0, 0)
+TicTacToeFrame.Size = UDim2.new(0, 0, 0, 0)
+TicTacToeFrame.AutoButtonColor = false
+
+TicTacToeCloseButton.Name = "TicTacToeCloseButton"
+TicTacToeCloseButton.Parent = TicTacToeFrame
+TicTacToeCloseButton.Size = UDim2.new(0, 20, 0, 20)
+TicTacToeCloseButton.AutoButtonColor = false
+TicTacToeCloseButton.Image = "rbxassetid://126487052147977"
+TicTacToeCloseButton.BackgroundTransparency = 1
 
 TicTacToeIcon.Parent = AppsScrollingFrame
 TicTacToeIcon.BackgroundTransparency = 1
 TicTacToeIcon.AutoButtonColor = false
 TicTacToeIcon.Image = "rbxassetid://81780017076419"
+
+TicTacToeWhiteFrame.Size = UDim2.new(0, 551, 0, 265)
+TicTacToeWhiteFrame.AnchorPoint = Vector2.new(0.5, 1)
+TicTacToeWhiteFrame.Position = UDim2.new(0.5, 0, 1, 0)
+TicTacToeWhiteFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeWhiteFrame.Parent = TicTacToeFrame
+TicTacToeWhiteFrame.BorderSizePixel = 0
 
 TicTacToeName.Name = "TicTacToeName"
 TicTacToeName.Parent = TicTacToeIcon
@@ -21,4 +51,22 @@ TicTacToeName.TextYAlignment = Enum.TextYAlignment.Bottom
  
 TicTacToeIcon.MouseButton1Click:Connect(function()
 
+end)
+
+spawn(function()
+while task.wait() do
+if TicTacToeFrame.Size ~= UDim2.new(0, 551, 0, 285) then
+TicTacToeCloseButton.Visible = false
+TicTacToeWhiteFrame.Visible = false
+end
+if TicTacToeFrame.Size == UDim2.new(0, 551, 0, 285) then
+TicTacToeCloseButton.Visible = true
+TicTacToeWhiteFrame.Visible = true
+end
+if TicTacToeFrame.Size == UDim2.new(0, 0, 0, 0) then
+TicTacToeFrame.Visible = false
+else
+TicTacToeFrame.Visible = true
+end
+end
 end)
