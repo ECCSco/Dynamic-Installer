@@ -50,7 +50,11 @@ TicTacToeName.TextXAlignment = Enum.TextXAlignment.Center
 TicTacToeName.TextYAlignment = Enum.TextYAlignment.Bottom
  
 TicTacToeIcon.MouseButton1Click:Connect(function()
+TicTacToeFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
+end)
 
+TicTacToeCloseButton.MouseButton1Click:Connect(function()
+TicTacToeFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
 end)
 
 spawn(function()
