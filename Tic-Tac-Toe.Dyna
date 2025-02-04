@@ -1,12 +1,61 @@
+TweenService = game:GetService("TweenService")
 TicTacToeIcon = Instance.new("ImageButton")
 TicTacToeName = Instance.new("TextLabel")
 TicTacToeFrame = Instance.new("ImageButton")
 TicTacToeCloseButton = Instance.new("ImageButton")
 TicTacToeWhiteFrame = Instance.new("Frame")
+TicTacToe = Instance.new("Frame")
+TicTacToeImage_1 = Instance.new("ImageButton")
+TicTacToeImage_2 = Instance.new("ImageButton")
+TicTacToeImage_3 = Instance.new("ImageButton")
+TicTacToeImage_4 = Instance.new("ImageButton")
+TicTacToeImage_5 = Instance.new("ImageButton")
+TicTacToeImage_6 = Instance.new("ImageButton")
+TicTacToeImage_7 = Instance.new("ImageButton")
+TicTacToeImage_8 = Instance.new("ImageButton")
+TicTacToeImage_9 = Instance.new("ImageButton")
+TicTacToeRetryButton = Instance.new("ImageButton")
+Player_1 = Instance.new("TextLabel")
+Player_2 = Instance.new("TextLabel")
+ClickSound = Instance.new("Sound")
+WinSound = Instance.new("Sound")
+GameBlock = Instance.new("ImageButton")
+
+local Player = "x"
+local Win_1 = 0
+local Win_2 = 0
 
 TicTacToeCloseButton.Visible = false
 TicTacToeWhiteFrame.Visible = false
 TicTacToeFrame.Visible = false
+TicTacToe.Visible = false
+TicTacToeImage_1.Visible = false
+TicTacToeImage_2.Visible = false
+TicTacToeImage_3.Visible = false
+TicTacToeImage_4.Visible = false
+TicTacToeImage_5.Visible = false
+TicTacToeImage_6.Visible = false
+TicTacToeImage_7.Visible = false
+TicTacToeImage_8.Visible = false
+TicTacToeImage_9.Visible = false
+TicTacToeRetryButton.Visible = false
+Player_1.Visible = false
+Player_2.Visible = false
+GameBlock.Visible = false
+
+ClickSound.Parent = game.workspace
+ClickSound.SoundId = "rbxassetid://9117215860"
+ClickSound.Playing = true
+ClickSound.Looped = false
+ClickSound.Volume = 1
+ClickSound:Stop()
+
+WinSound.Parent = game.workspace
+WinSound.SoundId = "rbxassetid://8578195318"
+WinSound.Playing = true
+WinSound.Looped = false
+WinSound.Volume = 1
+WinSound:Stop()
 
 TicTacToeFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 TicTacToeFrame.BorderSizePixel = 1
@@ -24,6 +73,14 @@ TicTacToeCloseButton.AutoButtonColor = false
 TicTacToeCloseButton.Image = "rbxassetid://126487052147977"
 TicTacToeCloseButton.BackgroundTransparency = 1
 
+TicTacToeRetryButton.Name = "TicTacToeRetryButton"
+TicTacToeRetryButton.Parent = TicTacToeFrame
+TicTacToeRetryButton.Size = UDim2.new(0, 20, 0, 20)
+TicTacToeRetryButton.AutoButtonColor = false
+TicTacToeRetryButton.Image = "rbxassetid://18946644800"
+TicTacToeRetryButton.BackgroundTransparency = 1
+TicTacToeRetryButton.Position = UDim2.new(0, 20, 0, 0)
+
 TicTacToeIcon.Parent = AppsScrollingFrame
 TicTacToeIcon.BackgroundTransparency = 1
 TicTacToeIcon.AutoButtonColor = false
@@ -35,6 +92,149 @@ TicTacToeWhiteFrame.Position = UDim2.new(0.5, 0, 1, 0)
 TicTacToeWhiteFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 TicTacToeWhiteFrame.Parent = TicTacToeFrame
 TicTacToeWhiteFrame.BorderSizePixel = 0
+
+Player_1.Name = "Player_1"
+Player_1.Parent = TicTacToeFrame
+Player_1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Player_1.Position = UDim2.new(1, -150, 0, 0)
+Player_1.AnchorPoint = Vector2.new(1, 0)
+Player_1.Size = UDim2.new(0, 150, 0, 20)
+Player_1.Font = Enum.Font.SourceSansBold
+Player_1.Text = "Player 'X' Score: 0"
+Player_1.TextColor3 = Color3.fromRGB(0, 0, 0)
+Player_1.TextSize = 20
+Player_1.TextXAlignment = Enum.TextXAlignment.Left
+Player_1.TextYAlignment = Enum.TextYAlignment.Center
+Player_1.BorderSizePixel = 0
+
+Player_2.Name = "Player_2"
+Player_2.Parent = TicTacToeFrame
+Player_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Player_2.Position = UDim2.new(1, 0, 0, 0)
+Player_2.AnchorPoint = Vector2.new(1, 0)
+Player_2.Size = UDim2.new(0, 150, 0, 20)
+Player_2.Font = Enum.Font.SourceSansBold
+Player_2.Text = "Player 'O' Score: 0"
+Player_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+Player_2.TextSize = 20
+Player_2.TextXAlignment = Enum.TextXAlignment.Left
+Player_2.TextYAlignment = Enum.TextYAlignment.Center
+Player_2.BorderSizePixel = 0
+
+TicTacToe.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TicTacToe.BorderSizePixel = 1
+TicTacToe.Parent = TicTacToeWhiteFrame
+TicTacToe.BorderSizePixel = 0  
+TicTacToe.AnchorPoint = Vector2.new(0.5, 0.5)
+TicTacToe.Position = UDim2.new(0.5, 0, 0.5, 0)
+TicTacToe.Size = UDim2.new(0, 250, 0, 250)
+
+TicTacToeImage_1.Name = "TicTacToeImage_1"
+TicTacToeImage_1.Parent = TicTacToe
+TicTacToeImage_1.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_1.AutoButtonColor = false
+TicTacToeImage_1.Image = ""
+TicTacToeImage_1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_1.BorderSizePixel = 0  
+TicTacToeImage_1.AnchorPoint = Vector2.new(0, 0)
+TicTacToeImage_1.Position = UDim2.new(0, 0, 0, 0)
+TicTacToeImage_1.ImageTransparency = 1
+
+TicTacToeImage_2.Name = "TicTacToeImage_2"
+TicTacToeImage_2.Parent = TicTacToe
+TicTacToeImage_2.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_2.AutoButtonColor = false
+TicTacToeImage_2.Image = ""
+TicTacToeImage_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_2.BorderSizePixel = 0  
+TicTacToeImage_2.AnchorPoint = Vector2.new(0.5, 0)
+TicTacToeImage_2.Position = UDim2.new(0.5, 0, 0, 0)
+TicTacToeImage_2.ImageTransparency = 1
+
+TicTacToeImage_3.Name = "TicTacToeImage_3"
+TicTacToeImage_3.Parent = TicTacToe
+TicTacToeImage_3.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_3.AutoButtonColor = false
+TicTacToeImage_3.Image = ""
+TicTacToeImage_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_3.BorderSizePixel = 0  
+TicTacToeImage_3.AnchorPoint = Vector2.new(1, 0)
+TicTacToeImage_3.Position = UDim2.new(1, 0, 0, 0)
+TicTacToeImage_3.ImageTransparency = 1
+
+TicTacToeImage_4.Name = "TicTacToeImage_4"
+TicTacToeImage_4.Parent = TicTacToe
+TicTacToeImage_4.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_4.AutoButtonColor = false
+TicTacToeImage_4.Image = ""
+TicTacToeImage_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_4.BorderSizePixel = 0  
+TicTacToeImage_4.AnchorPoint = Vector2.new(0, 0.5)
+TicTacToeImage_4.Position = UDim2.new(0, 0, 0.5, 0)
+TicTacToeImage_4.ImageTransparency = 1
+
+TicTacToeImage_5.Name = "TicTacToeImage_5"
+TicTacToeImage_5.Parent = TicTacToe
+TicTacToeImage_5.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_5.AutoButtonColor = false
+TicTacToeImage_5.Image = ""
+TicTacToeImage_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_5.BorderSizePixel = 0  
+TicTacToeImage_5.AnchorPoint = Vector2.new(0.5, 0.5)
+TicTacToeImage_5.Position = UDim2.new(0.5, 0, 0.5, 0)
+TicTacToeImage_5.ImageTransparency = 1
+
+TicTacToeImage_6.Name = "TicTacToeImage_6"
+TicTacToeImage_6.Parent = TicTacToe
+TicTacToeImage_6.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_6.AutoButtonColor = false
+TicTacToeImage_6.Image = ""
+TicTacToeImage_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_6.BorderSizePixel = 0  
+TicTacToeImage_6.AnchorPoint = Vector2.new(1, 0.5)
+TicTacToeImage_6.Position = UDim2.new(1, 0, 0.5, 0)
+TicTacToeImage_6.ImageTransparency = 1
+
+TicTacToeImage_7.Name = "TicTacToeImage_7"
+TicTacToeImage_7.Parent = TicTacToe
+TicTacToeImage_7.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_7.AutoButtonColor = false
+TicTacToeImage_7.Image = ""
+TicTacToeImage_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_7.BorderSizePixel = 0  
+TicTacToeImage_7.AnchorPoint = Vector2.new(0, 1)
+TicTacToeImage_7.Position = UDim2.new(0, 0, 1, 0)
+TicTacToeImage_7.ImageTransparency = 1
+
+TicTacToeImage_8.Name = "TicTacToeImage_8"
+TicTacToeImage_8.Parent = TicTacToe
+TicTacToeImage_8.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_8.AutoButtonColor = false
+TicTacToeImage_8.Image = ""
+TicTacToeImage_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_8.BorderSizePixel = 0  
+TicTacToeImage_8.AnchorPoint = Vector2.new(0.5, 1)
+TicTacToeImage_8.Position = UDim2.new(0.5, 0, 1, 0)
+TicTacToeImage_8.ImageTransparency = 1
+
+TicTacToeImage_9.Name = "TicTacToeImage_9"
+TicTacToeImage_9.Parent = TicTacToe
+TicTacToeImage_9.Size = UDim2.new(0, 80, 0, 80)
+TicTacToeImage_9.AutoButtonColor = false
+TicTacToeImage_9.Image = ""
+TicTacToeImage_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TicTacToeImage_9.BorderSizePixel = 0  
+TicTacToeImage_9.AnchorPoint = Vector2.new(1, 1)
+TicTacToeImage_9.Position = UDim2.new(1, 0, 1, 0)
+TicTacToeImage_9.ImageTransparency = 1
+
+GameBlock.BackgroundTransparency = 1
+GameBlock.BorderSizePixel = 1
+GameBlock.Parent = TicTacToe
+GameBlock.BorderSizePixel = 0  
+GameBlock.AnchorPoint = Vector2.new(0.5, 0.5)
+GameBlock.Position = UDim2.new(0.5, 0, 0.5, 0)
+GameBlock.Size = UDim2.new(0, 250, 0, 250)
 
 TicTacToeName.Name = "TicTacToeName"
 TicTacToeName.Parent = TicTacToeIcon
@@ -62,15 +262,507 @@ while task.wait() do
 if TicTacToeFrame.Size ~= UDim2.new(0, 551, 0, 285) then
 TicTacToeCloseButton.Visible = false
 TicTacToeWhiteFrame.Visible = false
+TicTacToe.Visible = false
+TicTacToeImage_1.Visible = false
+TicTacToeImage_2.Visible = false
+TicTacToeImage_3.Visible = false
+TicTacToeImage_4.Visible = false
+TicTacToeImage_5.Visible = false
+TicTacToeImage_6.Visible = false
+TicTacToeImage_7.Visible = false
+TicTacToeImage_8.Visible = false
+TicTacToeImage_9.Visible = false
+TicTacToeRetryButton.Visible = false
+Player_1.Visible = false
+Player_2.Visible = false
 end
 if TicTacToeFrame.Size == UDim2.new(0, 551, 0, 285) then
 TicTacToeCloseButton.Visible = true
 TicTacToeWhiteFrame.Visible = true
+TicTacToe.Visible = true
+TicTacToeImage_1.Visible = true
+TicTacToeImage_2.Visible = true
+TicTacToeImage_3.Visible = true
+TicTacToeImage_4.Visible = true
+TicTacToeImage_5.Visible = true
+TicTacToeImage_6.Visible = true
+TicTacToeImage_7.Visible = true
+TicTacToeImage_8.Visible = true
+TicTacToeImage_9.Visible = true
+TicTacToeRetryButton.Visible = true
+Player_1.Visible = true
+Player_2.Visible = true
 end
 if TicTacToeFrame.Size == UDim2.new(0, 0, 0, 0) then
 TicTacToeFrame.Visible = false
 else
 TicTacToeFrame.Visible = true
+end
+end
+end)
+
+TicTacToeRetryButton.MouseButton1Click:Connect(function()
+TicTacToeImage_1.ImageTransparency = 1
+TicTacToeImage_2.ImageTransparency = 1
+TicTacToeImage_3.ImageTransparency = 1
+TicTacToeImage_4.ImageTransparency = 1
+TicTacToeImage_5.ImageTransparency = 1
+TicTacToeImage_6.ImageTransparency = 1
+TicTacToeImage_7.ImageTransparency = 1
+TicTacToeImage_8.ImageTransparency = 1
+TicTacToeImage_9.ImageTransparency = 1
+TicTacToeImage_1.Image = ""
+TicTacToeImage_2.Image = ""
+TicTacToeImage_3.Image = ""
+TicTacToeImage_4.Image = ""
+TicTacToeImage_5.Image = ""
+TicTacToeImage_6.Image = ""
+TicTacToeImage_7.Image = ""
+TicTacToeImage_8.Image = ""
+TicTacToeImage_9.Image = ""
+Player = "x"
+GameBlock.Visible = false
+end)
+
+TicTacToeImage_1.MouseButton1Click:Connect(function()
+if TicTacToeImage_1.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_1, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_1.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_1.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_2.Image == "rbxassetid://81214926968074" and TicTacToeImage_3.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_2.Image == "rbxassetid://129360878120324" and TicTacToeImage_3.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_4.Image == "rbxassetid://81214926968074" and TicTacToeImage_7.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_4.Image == "rbxassetid://129360878120324" and TicTacToeImage_4.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+end
+end)
+
+TicTacToeImage_2.MouseButton1Click:Connect(function()
+if TicTacToeImage_2.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_2, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_2.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_2.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_2.Image == "rbxassetid://81214926968074" and TicTacToeImage_3.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_2.Image == "rbxassetid://129360878120324" and TicTacToeImage_3.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_2.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_8.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_2.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_8.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+end
+end)
+
+TicTacToeImage_3.MouseButton1Click:Connect(function()
+if TicTacToeImage_3.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_3, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_3.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_3.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_2.Image == "rbxassetid://81214926968074" and TicTacToeImage_3.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_2.Image == "rbxassetid://129360878120324" and TicTacToeImage_3.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://81214926968074" and TicTacToeImage_6.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://129360878120324" and TicTacToeImage_6.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_7.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_7.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+end
+end)
+
+TicTacToeImage_4.MouseButton1Click:Connect(function()
+if TicTacToeImage_4.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_4, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_4.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_4.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_4.Image == "rbxassetid://81214926968074" and TicTacToeImage_7.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_4.Image == "rbxassetid://129360878120324" and TicTacToeImage_7.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_4.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_6.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_4.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_6.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+end
+end)
+
+TicTacToeImage_5.MouseButton1Click:Connect(function()
+if TicTacToeImage_5.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_5, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_5.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_5.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_2.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_8.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_2.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_8.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_4.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_6.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_4.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_6.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_7.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_7.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+end
+end)
+
+TicTacToeImage_6.MouseButton1Click:Connect(function()
+if TicTacToeImage_6.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_6, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_6.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_6.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_4.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_6.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+end
+if TicTacToeImage_4.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_6.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://81214926968074" and TicTacToeImage_6.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://129360878120324" and TicTacToeImage_6.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+end
+end)
+
+TicTacToeImage_7.MouseButton1Click:Connect(function()
+if TicTacToeImage_7.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_7, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_7.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_7.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_7.Image == "rbxassetid://81214926968074" and TicTacToeImage_8.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_7.Image == "rbxassetid://129360878120324" and TicTacToeImage_8.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_4.Image == "rbxassetid://81214926968074" and TicTacToeImage_7.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_4.Image == "rbxassetid://129360878120324" and TicTacToeImage_7.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_7.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_3.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_7.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_3.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+end
+end)
+
+TicTacToeImage_8.MouseButton1Click:Connect(function()
+if TicTacToeImage_8.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_8, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_8.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_8.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_7.Image == "rbxassetid://81214926968074" and TicTacToeImage_8.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_7.Image == "rbxassetid://129360878120324" and TicTacToeImage_8.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_2.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_8.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_2.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_8.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+end
+end)
+
+TicTacToeImage_9.MouseButton1Click:Connect(function()
+if TicTacToeImage_9.ImageTransparency == 1 then
+ClickSound:Play()
+TweenService:Create(TicTacToeImage_9, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
+if Player == "x" then
+Player = "o"
+TicTacToeImage_9.Image = "rbxassetid://81214926968074"
+else
+if Player == "o" then
+Player = "x"
+TicTacToeImage_9.Image = "rbxassetid://129360878120324"
+end
+end
+if TicTacToeImage_7.Image == "rbxassetid://81214926968074" and TicTacToeImage_8.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_7.Image == "rbxassetid://129360878120324" and TicTacToeImage_8.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://81214926968074" and TicTacToeImage_6.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_3.Image == "rbxassetid://129360878120324" and TicTacToeImage_6.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://81214926968074" and TicTacToeImage_5.Image == "rbxassetid://81214926968074" and TicTacToeImage_9.Image == "rbxassetid://81214926968074" then
+Win_1 = Win_1 + 1
+Player_1.Text = "Player 'X' Score: "..Win_1
+WinSound:Play()
+GameBlock.Visible = true
+end
+if TicTacToeImage_1.Image == "rbxassetid://129360878120324" and TicTacToeImage_5.Image == "rbxassetid://129360878120324" and TicTacToeImage_9.Image == "rbxassetid://129360878120324" then
+Win_2 = Win_2 + 1
+Player_2.Text = "Player 'O' Score: "..Win_2
+WinSound:Play()
+GameBlock.Visible = true
 end
 end
 end)
