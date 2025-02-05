@@ -1,4 +1,3 @@
-spawn(function()
 TweenService = game:GetService("TweenService")
 TicTacToeIcon = Instance.new("ImageButton")
 TicTacToeName = Instance.new("TextLabel")
@@ -766,5 +765,4 @@ WinSound:Play()
 GameBlock.Visible = true
 end
 end
-end)
 end)
