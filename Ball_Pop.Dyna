@@ -1,7 +1,7 @@
-
-if game:GetService("CoreGui"):FindFirstChild("AppsScrollingFrame") and game:GetService("CoreGui").AppsScrollingFrame:FindFirstChild("PopBallIcon") then
+if game.CoreGui.DI.DynamicIsland.TabsFolder.TabsParent.MainHomeFrame.InstallerFrame.InstallerScrollingFrame.AppsInstallerFrame and game.CoreGui.DI.DynamicIsland.TabsFolder.TabsParent.MainHomeFrame.InstallerFrame.InstallerScrollingFrame.AppsInstallerFrame:FindFirstChild("PopBallIcon") then
 return
 end
+
 PopBallIcon = Instance.new("ImageButton")
 PopBallName = Instance.new("TextLabel")
 PopBallFrame = Instance.new("ImageButton")
