@@ -2080,7 +2080,7 @@ writefile("Dynamic_Island/GestureControl.ECCS", GestureControlValue.Value)
 end
 
 spawn(function()
-if not isfile("Dynamic_Island/Background/URLImageBackgroundIMGFrame.png") then
+if not isfile("Dynamic_Island/Background/ImageBackground.png") then
 local success, response = pcall(function()
 return
 game:HttpGet("https://i.ibb.co/0RmRCNYN/64000-2-1427056985.png")
