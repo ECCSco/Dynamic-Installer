@@ -1277,7 +1277,7 @@ AppsBackgroundImage.Name = "AppsBackgroundImage"
 AppsBackgroundImage.Parent = MainHomeFrame
 AppsBackgroundImage.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
 AppsBackgroundImage.AnchorPoint = Vector2.new(0.5, 0)
-AppsBackgroundImage.Image = "rbxassetid://122794061388218"
+AppsBackgroundImage.Image = "rbxassetid://112709426417490"
 AppsBackgroundImage.Position = UDim2.new(0.5, 0, 0, 0)
 AppsBackgroundImage.Size = UDim2.new(0, 551, 0, 285)
 AppsBackgroundImage.BorderSizePixel = 0 
@@ -2047,6 +2047,10 @@ end
 end
 end
  
+if not isfolder("Dynamic_Island/Background") then
+createfolders("Dynamic_Island/Background")
+end
+
 if not isfolder("Dynamic_Island") then
 createfolders("Dynamic_Island")
 end
@@ -2074,6 +2078,31 @@ end
 if not isfile("Dynamic_Island/GestureControl.ECCS") then
 writefile("Dynamic_Island/GestureControl.ECCS", GestureControlValue.Value)
 end
+
+spawn(function()
+if not isfile("Dynamic_Island/Background/URLImageBackgroundIMGFrame.png") then
+local success, response = pcall(function()
+return
+game:HttpGet("https://i.ibb.co/0RmRCNYN/64000-2-1427056985.png")
+end)
+ 
+if success then
+Url = "https://i.ibb.co/0RmRCNYN/64000-2-1427056985.png"
+DataMatch = Url:match("^.+(%..+)$")
+MatchedUrl = "ImageBackground"..DataMatch
+ 
+writefile("Dynamic_Island/Background/ImageBackground.png", response)
+ 
+AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
+ 
+else
+AppsBackgroundImage.Image = "rbxassetid://112709426417490"
+end
+ 
+else
+AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
+end
+end)
 
 File1 = readfile("Dynamic_Island/History.ECCS")
 
@@ -2455,7 +2484,7 @@ SavedPostLineUIGradient.Parent = SavedPostLine
 if gameName ~= "Universal Script 📌" then
 SavedScriptImage.Image = "https://assetgame.roblox.com/Game/Tools/ThumbnailAsset.ashx?aid="..imageId.."&fmt=png&wd=420&ht=420"
 else
-SavedScriptImage.Image = "rbxassetid://122794061388218"
+SavedScriptImage.Image = AppsBackgroundImage.Image
 end
  
 SavedScriptImageShadow = Instance.new("Frame")
@@ -2723,7 +2752,7 @@ SavedPostLineUIGradient.Parent = SavedPostLine
 if gameName ~= "Universal Script 📌" then
 SavedScriptImage.Image = "https://assetgame.roblox.com/Game/Tools/ThumbnailAsset.ashx?aid="..imageId.."&fmt=png&wd=420&ht=420"
 else
-SavedScriptImage.Image = "rbxassetid://122794061388218"
+SavedScriptImage.Image = AppsBackgroundImage.Image
 end
  
 SavedScriptImageShadow = Instance.new("Frame")
@@ -3360,7 +3389,7 @@ newScript.ScriptGame.Text = v.game.name
 newScript.Parent = Scripts
 end
 if v.game.name == "Universal Script 📌" then
-newScript.PreviewImage.Image = "rbxassetid://122794061388218"
+newScript.PreviewImage.Image = AppsBackgroundImage.Image
 else
 newScript.PreviewImage.Image = "https://assetgame.roblox.com/Game/Tools/ThumbnailAsset.ashx?aid="..v.game.gameId.."&fmt=png&wd=420&ht=420"
 end
