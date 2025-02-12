@@ -2304,8 +2304,6 @@ end
 end 
 end
 
-UpdateApps()
-
 spawn(function()
 local response = game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/.Installer")
 local function parseData(data)
@@ -3219,6 +3217,8 @@ if input.UserInputType == Enum.UserInputType.Touch then
 isHolding = false
 end
 end
+
+UpdateApps()
 
 UserInputService.InputBegan:Connect(onInputBegan)
 UserInputService.InputEnded:Connect(onInputEnded)
