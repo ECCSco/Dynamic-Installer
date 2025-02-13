@@ -48,7 +48,7 @@ UrlTextBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
 UrlTextBox.Text = ""
 UrlTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 UrlTextBox.TextSize = 30
-UrlTextBox.TextXAlignment = Enum.TextXAlignment.Center
+UrlTextBox.TextXAlignment = Enum.TextXAlignment.Left
 UrlTextBox.TextYAlignment = Enum.TextYAlignment.Center
 
 UrlTextBoxUICorner.CornerRadius = UDim.new(0, 10)
@@ -65,7 +65,21 @@ TestImageShow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
 TestImageShowUICorner.CornerRadius = UDim.new(0, 10)
 TestImageShowUICorner.Parent = TestImageShow
 
+SetImageButton.Name = "SetImageButton"
+SetImageButton.Parent = ChangeBackgroundAppSecondFrame
+SetImageButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+SetImageButton.AnchorPoint = Vector2.new(0.5, 1)
+SetImageButton.Position = UDim2.new(0.5, 0, 0, -10)
+SetImageButton.Size = UDim2.new(0, 100, 0, 30)
+SetImageButton.Font = Enum.Font.SourceSansBold
+SetImageButton.Text = "Set image"
+SetImageButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+SetImageButton.TextSize = 30
+SetImageButton.TextXAlignment = Enum.TextXAlignment.Left
+SetImageButton.TextYAlignment = Enum.TextYAlignment.Center
 
+SetImageButtonUICorner.CornerRadius = UDim.new(0, 10)
+SetImageButtonUICorner.Parent = SetImageButton
 
 ChangeBackgroundAppIcon.Parent = AppsScrollingFrame
 ChangeBackgroundAppIcon.BackgroundTransparency = 1
@@ -103,20 +117,13 @@ end)
 if success then
 Url = UrlTextBox.Text
 DataMatch = Url:match("^.+(%..+)$")
-local timestamp = tostring(os.time()) -- Добавляем временную метку
+local timestamp = tostring(os.time())
 local newFileName = "ImageBackground_" .. timestamp .. DataMatch
-
-if isfile("Dynamic_Island/Background/ImageBackground.png") then
-delfile("Dynamic_Island/Background/ImageBackground.png")
-end
 if isfile("Dynamic_Island/AppsData/ImageBackground.png") then
 delfile("Dynamic_Island/AppsData/ImageBackground.png")
 end
-
-writefile("Dynamic_Island/Background/" .. newFileName, response)
 writefile("Dynamic_Island/AppsData/" .. newFileName, response)
 
-AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/" .. newFileName)
 TestImageShow.Image = getcustomasset("Dynamic_Island/AppsData/" .. newFileName)
 else
 TestImageShow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
@@ -127,6 +134,25 @@ end
 end)
 end
 end)
+
+ChangeBackgroundAppCloseButton.MouseButton1Click:Connect(function()
+spawn(function()
+local success, response = pcall(function()
+return
+game:HttpGet("UrlTextBox.Text")
+end)
+ 
+if success then
+Url = UrlTextBox.Text
+DataMatch = Url:match("^.+(%..+)$")
+MatchedUrl = "ImageBackground"..DataMatch
+ 
+writefile("Dynamic_Island/Background/ImageBackground.png", response)
+AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
+end
+end)
+end)
+
 
 spawn(function()
 while task.wait() do
