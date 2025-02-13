@@ -147,9 +147,11 @@ if success then
 Url = UrlTextBox.Text
 DataMatch = Url:match("^.+(%..+)$")
 MatchedUrl = "ImageBackground"..DataMatch
- 
 writefile("Dynamic_Island/Background/ImageBackground.png", response)
 AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
+ChangeBackgroundAppCloseButton.Text = "Please, rejoin"
+wait(1.5)
+ChangeBackgroundAppCloseButton.Text = "Set image"
 end
 end)
 end)
