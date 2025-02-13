@@ -2266,7 +2266,9 @@ InstallerFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
 end) 
 if isfolder("Dynamic_Island/Apps") then 
 local files = listfiles("Dynamic_Island/Apps/") 
+wait()
 for _, file in ipairs(files) do 
+wait()
 loadstring(readfile(file))() 
 end 
 for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do 
