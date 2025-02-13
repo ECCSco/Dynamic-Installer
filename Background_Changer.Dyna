@@ -1,1 +1,147 @@
---
+ChangeBackgroundAppIcon = Instance.new("ImageButton")
+ChangeBackgroundAppName = Instance.new("TextLabel")
+ChangeBackgroundAppFrame = Instance.new("ImageButton")
+ChangeBackgroundAppCloseButton = Instance.new("ImageButton")
+ChangeBackgroundAppSecondFrame = Instance.new("Frame")
+UrlTextBox = Instance.new("TextBox")
+UrlTextBoxUICorner = Instance.new("UICorner")
+TestImageShow = Instance.new("ImageLabel")
+TestImageShowUICorner = Instance.new("UICorner")
+SetImageButton = Instance.new("TextButton")
+SetImageButtonUICorner = Instance.new("UICorner")
+
+ChangeBackgroundAppCloseButton.Visible = false
+ChangeBackgroundAppSecondFrame.Visible = false
+
+ChangeBackgroundAppFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+ChangeBackgroundAppFrame.Parent = MainHomeFrame
+ChangeBackgroundAppFrame.BorderSizePixel = 0  
+ChangeBackgroundAppFrame.AnchorPoint = Vector2.new(0.5, 0)
+ChangeBackgroundAppFrame.Position = UDim2.new(0.5, 0, 0, 0)
+ChangeBackgroundAppFrame.Size = UDim2.new(0, 0, 0, 0)
+ChangeBackgroundAppFrame.AutoButtonColor = false
+
+ChangeBackgroundAppSecondFrame.Size = UDim2.new(0, 551, 0, 265)
+ChangeBackgroundAppSecondFrame.AnchorPoint = Vector2.new(0.5, 1)
+ChangeBackgroundAppSecondFrame.Position = UDim2.new(0.5, 0, 1, 0)
+ChangeBackgroundAppSecondFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ChangeBackgroundAppSecondFrame.Parent = ChangeBackgroundAppFrame
+ChangeBackgroundAppSecondFrame.BorderSizePixel = 0
+
+ChangeBackgroundAppCloseButton.Name = "ChangeBackgroundAppCloseButton"
+ChangeBackgroundAppCloseButton.Parent = ChangeBackgroundAppFrame
+ChangeBackgroundAppCloseButton.Size = UDim2.new(0, 20, 0, 20)
+ChangeBackgroundAppCloseButton.AutoButtonColor = false
+ChangeBackgroundAppCloseButton.Image = "rbxassetid://126487052147977"
+ChangeBackgroundAppCloseButton.BackgroundTransparency = 1
+
+UrlTextBox.Name = "UrlTextBox"
+UrlTextBox.Parent = ChangeBackgroundAppSecondFrame
+UrlTextBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+UrlTextBox.AnchorPoint = Vector2.new(0.5, 0)
+UrlTextBox.Position = UDim2.new(0.5, 0, 0, 10)
+UrlTextBox.Size = UDim2.new(0, 500, 0, 30)
+UrlTextBox.ClearTextOnFocus = false
+UrlTextBox.Font = Enum.Font.SourceSansBold
+UrlTextBox.PlaceholderText = "Enter her image url with format .png"
+UrlTextBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+UrlTextBox.Text = ""
+UrlTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+UrlTextBox.TextSize = 30
+UrlTextBox.TextXAlignment = Enum.TextXAlignment.Center
+UrlTextBox.TextYAlignment = Enum.TextYAlignment.Center
+
+UrlTextBoxUICorner.CornerRadius = UDim.new(0, 10)
+UrlTextBoxUICorner.Parent = UrlTextBox
+
+TestImageShow.Parent = ChangeBackgroundAppSecondFrame
+TestImageShow.Size = UDim2.new(0, 250, 0, 150)
+TestImageShow.AnchorPoint = Vector2.new(0.5, 0)
+TestImageShow.Position = UDim2.new(0.5, 0, 0, 50)
+TestImageShow.BackgroundTransparency = 1
+TestImageShow.BorderSizePixel = 0 
+TestImageShow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+
+TestImageShowUICorner.CornerRadius = UDim.new(0, 10)
+TestImageShowUICorner.Parent = TestImageShow
+
+
+
+ChangeBackgroundAppIcon.Parent = AppsScrollingFrame
+ChangeBackgroundAppIcon.BackgroundTransparency = 1
+ChangeBackgroundAppIcon.AutoButtonColor = false
+ChangeBackgroundAppIcon.Image = "rbxassetid://72529611194455"
+
+ChangeBackgroundAppName.Name = "ChangeBackgroundAppName"
+ChangeBackgroundAppName.Parent = ChangeBackgroundAppIcon
+ChangeBackgroundAppName.BackgroundTransparency = 1
+ChangeBackgroundAppName.Position = UDim2.new(0.5, 0, 1, 0)
+ChangeBackgroundAppName.AnchorPoint = Vector2.new(0.5, 0)
+ChangeBackgroundAppName.Size = UDim2.new(0, 60, 0, 15)
+ChangeBackgroundAppName.Font = Enum.Font.SourceSansBold
+ChangeBackgroundAppName.Text = "WallWizard"
+ChangeBackgroundAppName.TextColor3 = Color3.fromRGB(255, 255, 255)
+ChangeBackgroundAppName.TextSize = 15
+ChangeBackgroundAppName.TextXAlignment = Enum.TextXAlignment.Center
+ChangeBackgroundAppName.TextYAlignment = Enum.TextYAlignment.Bottom
+ 
+ChangeBackgroundAppIcon.MouseButton1Click:Connect(function()
+ChangeBackgroundAppFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
+end)
+
+ChangeBackgroundAppCloseButton.MouseButton1Click:Connect(function()
+ChangeBackgroundAppFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
+end)
+
+UrlTextBox.FocusLost:Connect(function(enterPressed)
+if enterPressed and UrlTextBox.Text ~= "" then
+spawn(function()
+local success, response = pcall(function()
+return game:HttpGet(UrlTextBox.Text)
+end)
+
+if success then
+Url = UrlTextBox.Text
+DataMatch = Url:match("^.+(%..+)$")
+local timestamp = tostring(os.time()) -- Добавляем временную метку
+local newFileName = "ImageBackground_" .. timestamp .. DataMatch
+
+if isfile("Dynamic_Island/Background/ImageBackground.png") then
+delfile("Dynamic_Island/Background/ImageBackground.png")
+end
+if isfile("Dynamic_Island/AppsData/ImageBackground.png") then
+delfile("Dynamic_Island/AppsData/ImageBackground.png")
+end
+
+writefile("Dynamic_Island/Background/" .. newFileName, response)
+writefile("Dynamic_Island/AppsData/" .. newFileName, response)
+
+AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/" .. newFileName)
+TestImageShow.Image = getcustomasset("Dynamic_Island/AppsData/" .. newFileName)
+else
+TestImageShow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+UrlTextBox.Text = "Can't find an url or not right format"
+wait(1)
+UrlTextBox.Text = ""
+end
+end)
+end
+end)
+
+spawn(function()
+while task.wait() do
+if ChangeBackgroundAppFrame.Size ~= UDim2.new(0, 551, 0, 285) then
+ChangeBackgroundAppCloseButton.Visible = false
+ChangeBackgroundAppSecondFrame.Visible = fals
+end
+if ChangeBackgroundAppFrame.Size == UDim2.new(0, 551, 0, 285) then
+ChangeBackgroundAppCloseButton.Visible = true
+ChangeBackgroundAppSecondFrame.Visible = true
+end
+if ChangeBackgroundAppFrame.Size == UDim2.new(0, 0, 0, 0) then
+ChangeBackgroundAppFrame.Visible = false
+else
+ChangeBackgroundAppFrame.Visible = true
+end
+end
+end)
