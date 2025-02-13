@@ -128,9 +128,6 @@ writefile("Dynamic_Island/AppsData/"..newFileName, response)
 TestImageShow.Image = getcustomasset("Dynamic_Island/AppsData/"..newFileName)
 else
 TestImageShow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-UrlTextBox.Text = "Can't find an url or not right format"
-wait(1)
-UrlTextBox.Text = ""
 end
 end)
 end
@@ -149,9 +146,6 @@ DataMatch = Url:match("^.+(%..+)$")
 MatchedUrl = "ImageBackground"..DataMatch
 writefile("Dynamic_Island/Background/ImageBackground.png", response)
 AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
-ChangeBackgroundAppCloseButton.Text = "Please, rejoin"
-wait(1.5)
-ChangeBackgroundAppCloseButton.Text = "Set image"
 end
 end)
 end)
