@@ -2079,31 +2079,6 @@ if not isfile("Dynamic_Island/GestureControl.ECCS") then
 writefile("Dynamic_Island/GestureControl.ECCS", GestureControlValue.Value)
 end
 
-spawn(function()
-if not isfile("Dynamic_Island/Background/ImageBackground.png") then
-local success, response = pcall(function()
-return
-game:HttpGet("https://i.ibb.co/0RmRCNYN/64000-2-1427056985.png")
-end)
- 
-if success then
-Url = "https://i.ibb.co/0RmRCNYN/64000-2-1427056985.png"
-DataMatch = Url:match("^.+(%..+)$")
-MatchedUrl = "ImageBackground"..DataMatch
- 
-writefile("Dynamic_Island/Background/ImageBackground.png", response)
- 
-AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
- 
-else
-AppsBackgroundImage.Image = "rbxassetid://112709426417490"
-end
- 
-else
-AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
-end
-end)
-
 File1 = readfile("Dynamic_Island/History.ECCS")
 
 File2 = readfile("Dynamic_Island/Editor.ECCS")
@@ -3218,7 +3193,31 @@ isHolding = false
 end
 end
 
+spawn(function()
+if not isfile("Dynamic_Island/Background/ImageBackground.png") then
+local success, response = pcall(function()
+return
+game:HttpGet("https://i.ibb.co/0RmRCNYN/64000-2-1427056985.png")
+end)
+ 
+if success then
+Url = "https://i.ibb.co/0RmRCNYN/64000-2-1427056985.png"
+DataMatch = Url:match("^.+(%..+)$")
+MatchedUrl = "ImageBackground"..DataMatch
+ 
+writefile("Dynamic_Island/Background/ImageBackground.png", response)
+ 
+AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
+ 
+else
+AppsBackgroundImage.Image = "rbxassetid://112709426417490"
+end
+ 
+else
+AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
+end
 UpdateApps()
+end)
 
 UserInputService.InputBegan:Connect(onInputBegan)
 UserInputService.InputEnded:Connect(onInputEnded)
