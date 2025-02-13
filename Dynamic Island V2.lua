@@ -3218,6 +3218,7 @@ end
 else
 AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
 end
+updateFavourites()
 UpdateApps()
 end)
 
