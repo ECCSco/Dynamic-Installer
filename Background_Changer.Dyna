@@ -47,7 +47,7 @@ UrlTextBox.PlaceholderText = "Enter her image url with format .png"
 UrlTextBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
 UrlTextBox.Text = ""
 UrlTextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-UrlTextBox.TextSize = 30
+UrlTextBox.TextSize = 25
 UrlTextBox.TextXAlignment = Enum.TextXAlignment.Left
 UrlTextBox.TextYAlignment = Enum.TextYAlignment.Center
 
@@ -69,14 +69,15 @@ SetImageButton.Name = "SetImageButton"
 SetImageButton.Parent = ChangeBackgroundAppSecondFrame
 SetImageButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 SetImageButton.AnchorPoint = Vector2.new(0.5, 1)
-SetImageButton.Position = UDim2.new(0.5, 0, 0, -10)
+SetImageButton.Position = UDim2.new(0.5, 0, 1, -10)
 SetImageButton.Size = UDim2.new(0, 100, 0, 30)
 SetImageButton.Font = Enum.Font.SourceSansBold
 SetImageButton.Text = "Set image"
 SetImageButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-SetImageButton.TextSize = 30
-SetImageButton.TextXAlignment = Enum.TextXAlignment.Left
+SetImageButton.TextSize = 25
+SetImageButton.TextXAlignment = Enum.TextXAlignment.Center
 SetImageButton.TextYAlignment = Enum.TextYAlignment.Center
+SetImageButton.AutoButtonColor = false
 
 SetImageButtonUICorner.CornerRadius = UDim.new(0, 10)
 SetImageButtonUICorner.Parent = SetImageButton
@@ -118,13 +119,13 @@ if success then
 Url = UrlTextBox.Text
 DataMatch = Url:match("^.+(%..+)$")
 local timestamp = tostring(os.time())
-local newFileName = "ImageBackground_" .. timestamp .. DataMatch
+local newFileName = "ImageBackground_"..timestamp..DataMatch
 if isfile("Dynamic_Island/AppsData/ImageBackground.png") then
 delfile("Dynamic_Island/AppsData/ImageBackground.png")
 end
-writefile("Dynamic_Island/AppsData/" .. newFileName, response)
+writefile("Dynamic_Island/AppsData/"..newFileName, response)
 
-TestImageShow.Image = getcustomasset("Dynamic_Island/AppsData/" .. newFileName)
+TestImageShow.Image = getcustomasset("Dynamic_Island/AppsData/"..newFileName)
 else
 TestImageShow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
 UrlTextBox.Text = "Can't find an url or not right format"
@@ -139,7 +140,7 @@ ChangeBackgroundAppCloseButton.MouseButton1Click:Connect(function()
 spawn(function()
 local success, response = pcall(function()
 return
-game:HttpGet("UrlTextBox.Text")
+game:HttpGet(UrlTextBox.Text)
 end)
  
 if success then
@@ -152,7 +153,6 @@ AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackg
 end
 end)
 end)
-
 
 spawn(function()
 while task.wait() do
