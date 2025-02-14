@@ -3223,7 +3223,6 @@ else
 AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
 end
 updateFavourites()
-UpdateApps()
 end)
 
 UserInputService.InputBegan:Connect(onInputBegan)
@@ -3231,6 +3230,9 @@ UserInputService.InputEnded:Connect(onInputEnded)
 UserInputService.InputBegan:Connect(onKeyPress)
 UserInputService.InputEnded:Connect(onKeyRelease)
 
+if game:IsLoaded() then
+UpdateApps()
+end
 page = 1
 gquery = ""
 
