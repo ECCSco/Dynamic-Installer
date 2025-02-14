@@ -2271,7 +2271,7 @@ spawn(function()
 loadstring(readfile(file))() 
 end)
 end 
-spawn(function
+spawn(function()
 while wait(0.5) do    
 for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do 
 if loadedapps:IsA("GuiObject") then 
