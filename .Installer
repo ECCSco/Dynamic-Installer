@@ -1,4 +1,4 @@
 100702953902815~Paint~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Paint.Dyna")
 81780017076419~Tic-Tac-Toe~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Tic-Tac-Toe.Dyna")
 75900857436291~Pop Ball~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Ball_Pop.Dyna")
-72529611194455~WallWizard~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/Background_Changer.Dyna")
+72529611194455~WallWizard~game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/WallWizard.Dyna")
