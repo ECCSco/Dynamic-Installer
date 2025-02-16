@@ -3241,6 +3241,8 @@ UserInputService.InputEnded:Connect(onKeyRelease)
 
 if game:IsLoaded() then
 UpdateApps()
+wait()
+UpdateApps()
 end
 page = 1
 gquery = ""
