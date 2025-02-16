@@ -3232,9 +3232,10 @@ UserInputService.InputEnded:Connect(onKeyRelease)
 
 if game:IsLoaded() then
 UpdateApps()
-wait()
+wait(0.5)
 UpdateApps()
 end
+
 page = 1
 gquery = ""
 
