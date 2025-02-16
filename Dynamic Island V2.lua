@@ -2224,59 +2224,103 @@ CloseInstaller.MouseButton1Click:Connect(function()
 InstallerFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
 end)
 
+LoadingApps = Instance.new("TextLabel")
+LoadingApps.Name = "LoadingApps"
+LoadingApps.Parent = MainHomeFrame
+LoadingApps.BackgroundTransparency = 1
+LoadingApps.AnchorPoint = Vector2.new(0.5, 0)
+LoadingApps.Position = UDim2.new(0.5, 0, 0, 0)
+LoadingApps.Size = UDim2.new(0, 551, 0, 285)
+LoadingApps.Font = HeadFont
+LoadingApps.Text = "Wait until the applications are fully loaded"
+LoadingApps.TextColor3 = Color3.fromRGB(255, 255, 255)
+LoadingApps.TextSize = 50
+LoadingApps.TextWrapped = true
+
+local function WaitForGameToStabilize()
+while not game:IsLoaded() do
+task.wait(0.1)
+end
+
+local startTime = tick()
+while tick() - startTime < 5 do
+task.wait(0.1)
+end
+
+local RunService = game:GetService("RunService")
+local fpsThreshold = 30  
+while true do
+local fps = 1 / RunService.RenderStepped:Wait()
+if fps >= fpsThreshold then
+break
+end
+task.wait(0.1)
+end
+
+print("The game has stabilized. Let's start downloading files...")
+end
+
 local function UpdateApps()
 AppsScrollingFrame:ClearAllChildren()
 
-UIGridLayoutApps = Instance.new("UIGridLayout")
+local UIGridLayoutApps = Instance.new("UIGridLayout")
 UIGridLayoutApps.Parent = AppsScrollingFrame
 UIGridLayoutApps.HorizontalAlignment = Enum.HorizontalAlignment.Left
 UIGridLayoutApps.SortOrder = Enum.SortOrder.LayoutOrder
 UIGridLayoutApps.VerticalAlignment = Enum.VerticalAlignment.Top
 UIGridLayoutApps.CellPadding = UDim2.new(0, 8.9, 0, 15)
 UIGridLayoutApps.CellSize = UDim2.new(0, 60, 0, 60)
-    
-UIPaddingApps = Instance.new("UIPadding")
+
+local UIPaddingApps = Instance.new("UIPadding")
 UIPaddingApps.Parent = AppsScrollingFrame
 UIPaddingApps.PaddingBottom = UDim.new(0, 15)
 UIPaddingApps.PaddingLeft = UDim.new(0, 7)
 UIPaddingApps.PaddingRight = UDim.new(0, 0)
 UIPaddingApps.PaddingTop = UDim.new(0, 5)
-    
-AddAppButton = Instance.new("ImageButton")
+
+local AddAppButton = Instance.new("ImageButton")
 AddAppButton.Parent = AppsScrollingFrame
 AddAppButton.BackgroundTransparency = 1
 AddAppButton.AutoButtonColor = false
 AddAppButton.Image = "rbxassetid://121620095065476"
-    
-InstallerName = Instance.new("TextLabel")
+
+local InstallerName = Instance.new("TextLabel")
 InstallerName.Name = "InstallerName"
 InstallerName.Parent = AddAppButton
 InstallerName.BackgroundTransparency = 1
 InstallerName.Position = UDim2.new(0.5, 0, 1, 0)
 InstallerName.AnchorPoint = Vector2.new(0.5, 0)
 InstallerName.Size = UDim2.new(0, 60, 0, 15)
-InstallerName.Font = HeadFont
+InstallerName.Font = Enum.Font.SourceSans
 InstallerName.Text = "Dyna"
 InstallerName.TextColor3 = Color3.fromRGB(255, 255, 255)
 InstallerName.TextSize = 15
 InstallerName.TextXAlignment = Enum.TextXAlignment.Center
 InstallerName.TextYAlignment = Enum.TextYAlignment.Bottom
-AddAppButton.MouseButton1Click:Connect(function() 
-InstallerFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2) 
-end) 
-if isfolder("Dynamic_Island/Apps") then 
-local files = listfiles("Dynamic_Island/Apps/") 
+
+AddAppButton.MouseButton1Click:Connect(function()
+InstallerFrame:TweenSize(UDim2.new(0, 551, 0, 285), "InOut", "Sine", 0.2)
+end)
+
+if isfolder("Dynamic_Island/Apps") then
+local files = listfiles("Dynamic_Island/Apps/")
 local loaded = {}
 local function loadFiles()
-for _, file in ipairs(files) do 
+for _, file in ipairs(files) do
 spawn(function()
 local success, err = pcall(function()
-loadstring(readfile(file))() 
-end)
-if success then
+print("Attempting to load a file: "..file)
+local chunk = loadstring(readfile(file))
+if chunk then
+chunk()
 loaded[file] = true
+print("The file has been successfully loaded: "..file)
 else
-warn("Loading file error " ..file..": ".. err)
+warn("Error when loading a file "..file..": chunk is nil")
+end
+end)
+if not success then
+warn("Error when loading a file "..file..": "..err)
 end
 end)
 end
@@ -2284,28 +2328,37 @@ end
 local function allFilesLoaded()
 for _, file in ipairs(files) do
 if not loaded[file] then
+print("Waiting for the file to be loaded: "..file)
 return false
 end
 end
 return true
 end
+
 loadFiles()
 spawn(function()
 while not allFilesLoaded() do
-wait(0.5)
+task.wait(0.5)
 end
-while wait(0.5) do    
-for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do 
-if loadedapps:IsA("GuiObject") then 
-AppsCorner = Instance.new("UICorner") 
-AppsCorner.CornerRadius = UDim.new(0, 20) 
-AppsCorner.Parent = loadedapps 
+print("All files have been successfully uploaded. Continuing the operation to restore applications to their original appearance...")
+LoadingApps:Destroy()
+while task.wait() do
+for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do
+if loadedapps:IsA("GuiObject") then
+local AppsCorner = Instance.new("UICorner")
+AppsCorner.CornerRadius = UDim.new(0, 20)
+AppsCorner.Parent = loadedapps
 end
 end
 end
 end)
 end
 end
+
+spawn(function()
+WaitForGameToStabilize()
+UpdateApps()
+end)
 
 spawn(function()
 local response = game:HttpGet("https://raw.githubusercontent.com/ECCSco/Dynamic-Installer/refs/heads/main/.Installer")
@@ -3251,8 +3304,6 @@ UserInputService.InputBegan:Connect(onInputBegan)
 UserInputService.InputEnded:Connect(onInputEnded)
 UserInputService.InputBegan:Connect(onKeyPress)
 UserInputService.InputEnded:Connect(onKeyRelease)
-
-UpdateApps()
 
 page = 1
 gquery = ""
