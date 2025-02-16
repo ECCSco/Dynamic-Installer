@@ -2081,6 +2081,8 @@ end
 
 File1 = readfile("Dynamic_Island/History.ECCS")
 
+local files = listfiles("Dynamic_Island/Apps/") 
+
 File2 = readfile("Dynamic_Island/Editor.ECCS")
 ExecutorTextBox.Text = File2
 highlightSyntax(ExecutorTextBox.Text)
