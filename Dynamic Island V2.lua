@@ -2081,8 +2081,6 @@ end
 
 File1 = readfile("Dynamic_Island/History.ECCS")
 
-local files = listfiles("Dynamic_Island/Apps/") 
-
 File2 = readfile("Dynamic_Island/Editor.ECCS")
 ExecutorTextBox.Text = File2
 highlightSyntax(ExecutorTextBox.Text)
@@ -2266,25 +2264,34 @@ InstallerName.TextYAlignment = Enum.TextYAlignment.Bottom
 AddAppButton.MouseButton1Click:Connect(function() 
 InstallerFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2) 
 end) 
-if isfolder("Dynamic_Island/Apps") then 
-local files = listfiles("Dynamic_Island/Apps/") 
-for _, file in ipairs(files) do 
+if isfolder("Dynamic_Island/Apps") then
+local files = listfiles("Dynamic_Island/Apps/")
+local fileCount = #files
+local loadedCount = 0
+
+for _, file in ipairs(files) do
 spawn(function()
-loadstring(readfile(file))() 
+loadstring(readfile(file))()
+loadedCount = loadedCount + 1
 end)
-end 
-spawn(function()
-while wait(0.5) do    
-for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do 
-if loadedapps:IsA("GuiObject") then 
-AppsCorner = Instance.new("UICorner") 
-AppsCorner.CornerRadius = UDim.new(0, 20) 
-AppsCorner.Parent = loadedapps 
-end 
 end
-end 
+
+spawn(function()
+while wait(0.5) do
+if loadedCount == fileCount then
+for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do
+if loadedapps:IsA("GuiObject") then
+AppsCorner = Instance.new("UICorner")
+AppsCorner.CornerRadius = UDim.new(0, 20)
+AppsCorner.Parent = loadedapps
+end
+end
+break
+end
+end
 end)
-end 
+end
+
 end
 
 spawn(function()
