@@ -2266,23 +2266,45 @@ InstallerFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
 end) 
 if isfolder("Dynamic_Island/Apps") then 
 local files = listfiles("Dynamic_Island/Apps/") 
+local loaded = {}
+local function loadFiles()
 for _, file in ipairs(files) do 
 spawn(function()
+local success, err = pcall(function()
 loadstring(readfile(file))() 
 end)
-end 
+if success then
+loaded[file] = true
+else
+warn("Loading file error " ..file..": ".. err)
+end
+end)
+end
+end
+local function allFilesLoaded()
+for _, file in ipairs(files) do
+if not loaded[file] then
+return false
+end
+end
+return true
+end
+loadFiles()
 spawn(function()
+while not allFilesLoaded() do
+wait(0.5)
+end
 while wait(0.5) do    
 for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do 
 if loadedapps:IsA("GuiObject") then 
 AppsCorner = Instance.new("UICorner") 
 AppsCorner.CornerRadius = UDim.new(0, 20) 
 AppsCorner.Parent = loadedapps 
-end 
 end
-end 
+end
+end
 end)
-end 
+end
 end
 
 spawn(function()
@@ -3230,11 +3252,7 @@ UserInputService.InputEnded:Connect(onInputEnded)
 UserInputService.InputBegan:Connect(onKeyPress)
 UserInputService.InputEnded:Connect(onKeyRelease)
 
-if game:IsLoaded() then
 UpdateApps()
-wait(0.5)
-UpdateApps()
-end
 
 page = 1
 gquery = ""
