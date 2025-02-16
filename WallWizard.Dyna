@@ -139,13 +139,13 @@ local success, response = pcall(function()
 return
 game:HttpGet(UrlTextBox.Text)
 end)
- 
+
 if success then
 Url = UrlTextBox.Text
 DataMatch = Url:match("^.+(%..+)$")
 MatchedUrl = "ImageBackground"..DataMatch
 writefile("Dynamic_Island/Background/ImageBackground.png", response)
-AppsBackgroundImage.Image = getcustomasset("Dynamic_Island/Background/ImageBackground.png")
+AppsBackgroundImage.Image = TestImageShow.Image
 end
 end)
 end)
