@@ -108,7 +108,7 @@ ChangeBackgroundAppCloseButton.MouseButton1Click:Connect(function()
 ChangeBackgroundAppFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
 end)
 
-UrlTextBox.FocusLost:Connect(function(enterPressed)
+UrlTextBox.FocusLost:Connect(function()
 if UrlTextBox.Text ~= "" then
 spawn(function()
 local success, response = pcall(function()
