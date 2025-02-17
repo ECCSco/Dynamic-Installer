@@ -2232,7 +2232,7 @@ LoadingApps.AnchorPoint = Vector2.new(0.5, 0)
 LoadingApps.Position = UDim2.new(0.5, 0, 0, 0)
 LoadingApps.Size = UDim2.new(0, 551, 0, 285)
 LoadingApps.Font = HeadFont
-LoadingApps.Text = "Wait until the applications are fully loaded"
+LoadingApps.Text = "Please be patient while the applications are loading"
 LoadingApps.TextColor3 = Color3.fromRGB(255, 255, 255)
 LoadingApps.TextSize = 50
 LoadingApps.TextWrapped = true
@@ -2256,7 +2256,6 @@ break
 end
 task.wait(0.1)
 end
-LoadingApps.Text = "The game has stabilized. Starting the file download..."
 print("The game has stabilized. Starting the file download...")
 end
 
@@ -2310,20 +2309,16 @@ for _, file in ipairs(files) do
 spawn(function()
 local success, err = pcall(function()
 print("Attempting to load a file: "..file)
-LoadingApps.Text = "Attempting to load a file: "..file
 local chunk = loadstring(readfile(file))
 if chunk then
 chunk()
 loaded[file] = true
-LoadingApps.Text = "The file has been successfully loaded: "..file
 print("The file has been successfully loaded: "..file)
 else
-LoadingApps.Text = "Error when loading a file "..file..": chunk is nil"
 warn("Error when loading a file "..file..": chunk is nil")
 end
 end)
 if not success then
-LoadingApps.Text = "Error when loading a file "..file..": "..err
 warn("Error when loading a file "..file..": "..err)
 end
 end)
@@ -2332,7 +2327,6 @@ end
 local function allFilesLoaded()
 for _, file in ipairs(files) do
 if not loaded[file] then
-LoadingApps.Text = "Waiting for the file to be loaded: "..file
 print("Waiting for the file to be loaded: "..file)
 return false
 end
@@ -2346,7 +2340,6 @@ while not allFilesLoaded() do
 task.wait(0.5)
 end
 print("All files have been successfully loaded. Continuing the operation to restore applications to their original appearance...")
-LoadingApps.Text = "All files have been successfully loaded. Continuing the operation to restore applications to their original appearance..."
 LoadingApps:Destroy()
 while task.wait() do
 for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do
