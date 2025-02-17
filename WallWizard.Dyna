@@ -108,6 +108,31 @@ ChangeBackgroundAppCloseButton.MouseButton1Click:Connect(function()
 ChangeBackgroundAppFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
 end)
 
+function createfolders(path)
+local pathtbl = string.split(path, "/")
+for i, v in pairs(pathtbl) do
+if i == 1 then
+if not isfolder(v) then
+makefolder(v)
+end
+else
+local newpath = pathtbl[1]
+for i2=2, i-1 do
+newpath = newpath.. "/" ..pathtbl[i2]
+end
+newpath = newpath.. "/" ..v
+if not isfolder(newpath) then
+makefolder(newpath)
+end
+end
+end
+end
+ 
+if not isfolder("Dynamic_Island/AppsData/WallWizard") then
+createfolders("Dynamic_Island/AppsData/WallWizard")
+end
+
+
 UrlTextBox.FocusLost:Connect(function()
 if UrlTextBox.Text ~= "" then
 spawn(function()
@@ -120,12 +145,8 @@ Url = UrlTextBox.Text
 DataMatch = Url:match("^.+(%..+)$")
 local timestamp = tostring(os.time())
 local newFileName = "ImageBackground_"..timestamp..DataMatch
-if isfile("Dynamic_Island/AppsData/ImageBackground.png") then
-delfile("Dynamic_Island/AppsData/ImageBackground.png")
-end
-writefile("Dynamic_Island/AppsData/"..newFileName, response)
-
-TestImageShow.Image = getcustomasset("Dynamic_Island/AppsData/"..newFileName)
+writefile("Dynamic_Island/AppsData/WallWizard/"..newFileName, response)
+TestImageShow.Image = getcustomasset("Dynamic_Island/AppsData/WallWizard/"..newFileName)
 else
 TestImageShow.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
 end
