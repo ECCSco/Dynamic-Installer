@@ -109,7 +109,7 @@ ChangeBackgroundAppFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
 end)
 
 UrlTextBox.FocusLost:Connect(function(enterPressed)
-if enterPressed and UrlTextBox.Text ~= "" then
+if UrlTextBox.Text ~= "" then
 spawn(function()
 local success, response = pcall(function()
 return game:HttpGet(UrlTextBox.Text)
