@@ -2333,7 +2333,6 @@ end
 end
 return true
 end
-
 loadFiles()
 spawn(function()
 while not allFilesLoaded() do
@@ -2341,13 +2340,11 @@ task.wait(0.5)
 end
 print("All files have been successfully loaded. Continuing the operation to restore applications to their original appearance...")
 LoadingApps:Destroy()
-while task.wait() do
 for _, loadedapps in pairs(AppsScrollingFrame:GetChildren()) do
 if loadedapps:IsA("GuiObject") then
 local AppsCorner = Instance.new("UICorner")
 AppsCorner.CornerRadius = UDim.new(0, 20)
 AppsCorner.Parent = loadedapps
-end
 end
 end
 end)
