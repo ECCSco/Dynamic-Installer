@@ -130,7 +130,6 @@ if WikipediaFrame.Size ~= UDim2.new(0, 551, 0, 285) then
 WikipediaCloseButton.Visible = false
 WikipediaMainFrame.Visible = false
 WikiSearchBox.Visible = false
-WikipediaBackButton.Visible = false
 end
 if WikipediaFrame.Size == UDim2.new(0, 551, 0, 285) then
 WikipediaCloseButton.Visible = true
@@ -142,7 +141,7 @@ WikipediaFrame.Visible = false
 else
 WikipediaFrame.Visible = true
 end
-if WikiSearchBox.Size == UDim2.new(0, 510, 0, 20) then
+if WikiSearchBox.Size == UDim2.new(0, 510, 0, 20) and WikipediaFrame.Size == UDim2.new(0, 551, 0, 285) then
 WikipediaBackButton.Visible = true
 else
 WikipediaBackButton.Visible = false
