@@ -1,0 +1,284 @@
+WikipediaIcon = Instance.new("ImageButton")
+WikipediaName = Instance.new("TextLabel")
+WikipediaFrame = Instance.new("ImageButton")
+WikipediaCloseButton = Instance.new("ImageButton")
+WikipediaMainFrame = Instance.new("ScrollingFrame")
+WikiSearchBox = Instance.new("TextBox")
+WikipediaBackButton = Instance.new("ImageButton")
+WikipediaTitlesScrollingFrame = Instance.new("ScrollingFrame")
+WikipediaTitlesArticlesScrollingFrame = Instance.new("ScrollingFrame")
+WikiTitlesListLayout = Instance.new("UIListLayout")
+HttpService = game:GetService("HttpService")
+TitleTemplate = Instance.new("TextButton")
+
+WikipediaCloseButton.Visible = false
+WikipediaMainFrame.Visible = false
+WikiSearchBox.Visible = false
+
+WikipediaFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+WikipediaFrame.BorderSizePixel = 1
+WikipediaFrame.Parent = MainHomeFrame
+WikipediaFrame.BorderSizePixel = 0  
+WikipediaFrame.AnchorPoint = Vector2.new(0.5, 0)
+WikipediaFrame.Position = UDim2.new(0.5, 0, 0, 0)
+WikipediaFrame.Size = UDim2.new(0, 0, 0, 0)
+WikipediaFrame.AutoButtonColor = false
+
+WikiSearchBox.Name = "WikiSearchBox"
+WikiSearchBox.Parent = WikipediaFrame
+WikiSearchBox.BackgroundTransparency = 1
+WikiSearchBox.AnchorPoint = Vector2.new(1, 0)
+WikiSearchBox.Position = UDim2.new(1, 0, 0, 0)
+WikiSearchBox.Size = UDim2.new(0, 530, 0, 20)
+WikiSearchBox.ClearTextOnFocus = false
+WikiSearchBox.Font = Enum.Font.SourceSansBold
+WikiSearchBox.PlaceholderText = "Search on Wikipedia"
+WikiSearchBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+WikiSearchBox.Text = ""
+WikiSearchBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+WikiSearchBox.TextSize = 20
+WikiSearchBox.TextXAlignment = Enum.TextXAlignment.Left
+WikiSearchBox.TextYAlignment = Enum.TextYAlignment.Center
+
+WikipediaBackButton.Name = "WikipediaBackButton"
+WikipediaBackButton.Parent = WikipediaFrame
+WikipediaBackButton.Size = UDim2.new(0, 20, 0, 20)
+WikipediaBackButton.AutoButtonColor = false
+WikipediaBackButton.Image = "rbxassetid://18946644800"
+WikipediaBackButton.BackgroundTransparency = 1
+WikipediaBackButton.Position = UDim2.new(0, 20, 0, 0)
+WikipediaBackButton.Visible = false
+
+WikipediaCloseButton.Name = "WikipediaCloseButton"
+WikipediaCloseButton.Parent = WikipediaFrame
+WikipediaCloseButton.Size = UDim2.new(0, 20, 0, 20)
+WikipediaCloseButton.AutoButtonColor = false
+WikipediaCloseButton.Image = "rbxassetid://126487052147977"
+WikipediaCloseButton.BackgroundTransparency = 1
+
+WikipediaMainFrame.Name = "WikipediaMainFrame"
+WikipediaMainFrame.Parent = WikipediaFrame
+WikipediaMainFrame.Active = true
+WikipediaMainFrame.BorderSizePixel = 0 
+WikipediaMainFrame.AnchorPoint = Vector2.new(0.5, 1)
+WikipediaMainFrame.Position = UDim2.new(0.5, 0, 1, 0)
+WikipediaMainFrame.Size = UDim2.new(0, 551, 0, 265)
+WikipediaMainFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+WikipediaMainFrame.ScrollBarThickness = 0
+WikipediaMainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+
+WikipediaTitlesScrollingFrame.Name = "WikipediaTitlesScrollingFrame"
+WikipediaTitlesScrollingFrame.Parent = WikipediaMainFrame
+WikipediaTitlesScrollingFrame.Active = true
+WikipediaTitlesScrollingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+WikipediaTitlesScrollingFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+WikipediaTitlesScrollingFrame.Size = UDim2.new(0, 551, 0, 265)
+WikipediaTitlesScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+WikipediaTitlesScrollingFrame.ScrollBarThickness = 0
+WikipediaTitlesScrollingFrame.Transparency = 1
+
+WikipediaTitlesArticlesScrollingFrame.Name = "WikipediaTitlesArticlesScrollingFrame"
+WikipediaTitlesArticlesScrollingFrame.Parent = WikipediaMainFrame
+WikipediaTitlesArticlesScrollingFrame.Active = true
+WikipediaTitlesArticlesScrollingFrame.BorderSizePixel = 0 
+WikipediaTitlesArticlesScrollingFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+WikipediaTitlesArticlesScrollingFrame.Position = UDim2.new(1.5, 0, 0.5, 0)
+WikipediaTitlesArticlesScrollingFrame.Size = UDim2.new(0, 551, 0, 265)
+WikipediaTitlesArticlesScrollingFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+WikipediaTitlesArticlesScrollingFrame.ScrollBarThickness = 0
+WikipediaTitlesArticlesScrollingFrame.Transparency = 1
+
+TitleTemplate.Name = "TitleTemplate"
+TitleTemplate.Size = UDim2.new(1, 0, 0, 50)
+TitleTemplate.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TitleTemplate.TextColor3 = Color3.new(0, 0, 0)
+TitleTemplate.Visible = false
+TitleTemplate.Parent = WikipediaFrame
+
+WikiTitlesListLayout.Padding = UDim.new(0, 5)
+WikiTitlesListLayout.Parent = WikipediaTitlesScrollingFrame
+
+WikipediaIcon.Parent = AppsScrollingFrame
+WikipediaIcon.BackgroundTransparency = 1
+WikipediaIcon.AutoButtonColor = false
+WikipediaIcon.Image = "rbxassetid://108020989828910"
+
+WikipediaName.Name = "WikipediaName"
+WikipediaName.Parent = WikipediaIcon
+WikipediaName.BackgroundTransparency = 1
+WikipediaName.Position = UDim2.new(0.5, 0, 1, 0)
+WikipediaName.AnchorPoint = Vector2.new(0.5, 0)
+WikipediaName.Size = UDim2.new(0, 60, 0, 15)
+WikipediaName.Font = Enum.Font.SourceSans
+WikipediaName.Text = "Wikipedia"
+WikipediaName.TextColor3 = Color3.fromRGB(255, 255, 255)
+WikipediaName.TextSize = 15
+WikipediaName.TextXAlignment = Enum.TextXAlignment.Center
+WikipediaName.TextYAlignment = Enum.TextYAlignment.Bottom
+ 
+WikipediaIcon.MouseButton1Click:Connect(function()
+WikipediaFrame:TweenSize(UDim2.new(0, 551, 0, 285),"InOut","Sine",0.2)
+end)
+
+WikipediaCloseButton.MouseButton1Click:Connect(function()
+WikipediaFrame:TweenSize(UDim2.new(0, 0, 0, 0),"InOut","Sine",0.2)
+end)
+
+spawn(function()
+while task.wait() do
+if WikipediaFrame.Size ~= UDim2.new(0, 551, 0, 285) then
+WikipediaCloseButton.Visible = false
+WikipediaMainFrame.Visible = false
+WikiSearchBox.Visible = false
+end
+if WikipediaFrame.Size == UDim2.new(0, 551, 0, 285) then
+WikipediaCloseButton.Visible = true
+WikipediaMainFrame.Visible = true
+WikiSearchBox.Visible = true
+end
+if WikipediaFrame.Size == UDim2.new(0, 0, 0, 0) then
+WikipediaFrame.Visible = false
+else
+WikipediaFrame.Visible = true
+end
+if WikiSearchBox.Size == UDim2.new(0, 510, 0, 20) then
+WikipediaBackButton.Visible = true
+else
+WikipediaBackButton.Visible = false
+end
+end
+end)
+
+local function updateTitlesFrameSize()
+WikipediaTitlesScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, WikiTitlesListLayout.AbsoluteContentSize.Y + 10)
+end
+
+WikiTitlesListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(updateTitlesFrameSize)
+
+local function searchArticles(query)
+local encodedQuery = HttpService:UrlEncode(query)
+    
+local success, result = pcall(function()
+return HttpService:JSONDecode(game:HttpGetAsync(string.format("https://ru.wikipedia.org/w/api.php?action=query&list=search&srsearch=%s&srlimit=100&format=json", encodedQuery)))
+end)
+    
+if success and result.query and result.query.search then
+return result.query.search
+end
+return nil
+end
+
+local function getArticleContent(pageId)
+
+local success, result = pcall(function()
+return HttpService:JSONDecode(game:HttpGetAsync(string.format("https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&pageids=%s&explaintext&format=json", pageId)))
+end)
+    
+if success and result.query and result.query.pages then
+local page = result.query.pages[tostring(pageId)]
+return page.extract or "Nothing here"
+end
+return nil
+end
+
+local function showArticleContent(pageId)
+WikipediaTitlesArticlesScrollingFrame:ClearAllChildren()
+
+local content = getArticleContent(pageId)
+ 
+if content then   
+local contentText = Instance.new("TextLabel")
+contentText.TextWrapped = true
+contentText.Size = UDim2.new(1, 0, 0, 0)
+contentText.Position = UDim2.new(0, 0, 0, 0)
+contentText.TextXAlignment = Enum.TextXAlignment.Left
+contentText.TextYAlignment = Enum.TextYAlignment.Top
+contentText.TextColor3 = Color3.fromRGB(255, 255, 255)
+contentText.Text = content:sub(1, 200000)
+contentText.Parent = WikipediaTitlesArticlesScrollingFrame
+contentText.Font = Enum.Font.SourceSansBold
+contentText.TextSize = 30
+contentText.BackgroundTransparency = 1
+spawn(function()
+while wait() do
+contentText.Size = UDim2.new(1, 0, 0, contentText.TextBounds.Y + 300)
+end
+end)
+else
+local errorText = Instance.new("TextLabel")
+errorText.Text = "Can't found an articles"
+errorText.TextColor3 = Color3.fromRGB(255, 255, 255)
+errorText.Size = UDim2.new(1, 0, 1, 0)
+errorText.Parent = WikipediaTitlesArticlesScrollingFrame
+errorText.Font = Enum.Font.SourceSansBold
+errorText.TextSize = 30
+errorText.BackgroundTransparency = 1
+end
+end
+
+local function showSearchResults(results)
+for _, child in ipairs(WikipediaTitlesScrollingFrame:GetChildren()) do
+if child:IsA("TextButton") or child:IsA("TextLabel") then
+child:Destroy()
+end
+end
+
+if not results or #results == 0 then
+local noResults = Instance.new("TextLabel")
+noResults.Text = "Nothing founded"
+noResults.Size = UDim2.new(1, 0, 1, 0)
+noResults.Parent = WikipediaTitlesScrollingFrame
+noResults.Font = Enum.Font.SourceSansBold
+noResults.TextSize = 60
+noResults.TextColor3 = Color3.fromRGB(255, 255, 255)
+noResults.BackgroundTransparency = 1
+return
+end
+    
+for _, item in ipairs(results) do
+local UrlButton = TitleTemplate:Clone()
+UrlButton.Text = item.title
+UrlButton.Visible = true
+UrlButton.Parent = WikipediaTitlesScrollingFrame
+UrlButton.TextColor3 = Color3.fromRGB(0, 0, 255)
+UrlButton.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+UrlButton.TextXAlignment = Enum.TextXAlignment.Left
+UrlButton.TextYAlignment = Enum.TextYAlignment.Center
+UrlButton.Size = UDim2.new(1, 0, 0, 50)
+UrlButton.Font = Enum.Font.SourceSansBold
+UrlButton.AutoButtonColor = false
+UrlButton.TextSize = 25
+UrlButton.TextWrapped = true
+UrlButton.MouseButton1Click:Connect(function()
+showArticleContent(item.pageid)
+WikipediaTitlesScrollingFrame:TweenPosition(UDim2.new(-1.5, 0, 0.5, 0),"InOut","Sine",0.2)
+WikipediaTitlesArticlesScrollingFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0),"InOut","Sine",0.2)
+WikiSearchBox:TweenSize(UDim2.new(0, 510, 0, 20),"InOut","Sine",0.2)
+end)
+local UrlButtonUICorner = Instance.new("UICorner")
+UrlButtonUICorner.CornerRadius = UDim.new(0, 10)
+UrlButtonUICorner.Parent = UrlButton
+end
+updateTitlesFrameSize()
+end
+
+WikipediaBackButton.MouseButton1Click:Connect(function()
+WikipediaTitlesScrollingFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0),"InOut","Sine",0.2)
+WikipediaTitlesArticlesScrollingFrame:TweenPosition(UDim2.new(1.5, 0, 0.5, 0),"InOut","Sine",0.2)
+WikiSearchBox:TweenSize(UDim2.new(0, 530, 0, 20),"InOut","Sine",0.2)
+WikipediaTitlesArticlesScrollingFrame:ClearAllChildren()
+end)
+
+WikiSearchBox.FocusLost:Connect(function(enterPressed)
+if enterPressed and #WikiSearchBox.Text > 1 then
+WikipediaTitlesScrollingFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0),"InOut","Sine",0.2)
+WikipediaTitlesArticlesScrollingFrame:TweenPosition(UDim2.new(1.5, 0, 0.5, 0),"InOut","Sine",0.2)
+WikiSearchBox:TweenSize(UDim2.new(0, 530, 0, 20),"InOut","Sine",0.2)
+WikipediaTitlesArticlesScrollingFrame:ClearAllChildren()
+local results = searchArticles(WikiSearchBox.Text)
+showSearchResults(results)
+end
+end)
+
+local results = searchArticles("Shaun the sheep")
+showSearchResults(results)
