@@ -2383,6 +2383,10 @@ AppImage.Size = UDim2.new(0, 70, 0, 70)
 AppImage.Position = UDim2.new(0, 5, 0, 5)
 AppImage.BackgroundTransparency = 1
 
+local AppImageUICorner = Instance.new("UICorner")
+AppImageUICorner.CornerRadius = UDim.new(0, 20)
+AppImageUICorner.Parent = AppImage
+   
 local DynaLine = Instance.new("Frame")
 DynaLine.Parent = AppsInstallerFrame
 DynaLine.Size = UDim2.new(1, 0, 0, 5)
