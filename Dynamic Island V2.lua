@@ -1661,7 +1661,6 @@ end)
 ShadersButton.MouseButton1Click:Connect(function()
 if ShadersButton.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
 TweenService:Create(ShadersButton, TweenInfo.new(0.5), {BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
-Sky = Instance.new("Sky")
 Bloom = Instance.new("BloomEffect")
 Blur = Instance.new("BlurEffect")
 ColorCE = Instance.new("ColorCorrectionEffect")
@@ -1670,17 +1669,6 @@ SunRays = Instance.new("SunRaysEffect")
 Light.Brightness = 2.25
 Light.ExposureCompensation = 0.1
 Light.ClockTime = 7
- 
-Sky.SkyboxBk = "rbxassetid://15502536257"
-Sky.SkyboxDn = "rbxassetid://15502530795"
-Sky.SkyboxFt = "rbxassetid://15502534129"
-Sky.SkyboxLf = "rbxassetid://15502527632"
-Sky.SkyboxRt = "rbxassetid://15502532963"
-Sky.SkyboxUp = "rbxassetid://15502537404"
-Sky.StarCount = 5000
-Sky.SunAngularSize = 0
-Sky.MoonAngularSize = 0
-Sky.Parent = Light
  
 Bloom.Intensity = 0.3
 Bloom.Size = 10
